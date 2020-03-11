@@ -5,6 +5,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier # KNN
 from sklearn.ensemble import RandomForestClassifier #RF klasifikator
+from sklearn import preprocessing
 import xgboost as xgb
 import pandas as pd
 
@@ -14,42 +15,62 @@ def reshape_data(input_data):
     return input_data.reshape((nsamples, nx*ny))
 
 
-path_master = "/content/drive/My Drive/Colab Notebooks/SIAP/datasets/master.csv"
-data_master = pd.read_csv(path_master)
+data_master = pd.read_csv('master.csv')
+master_train = pd.read_csv('master_train.csv')
+master_test = pd.read_csv('master_test.csv')
+data_salaries = pd.read_csv('salaries.csv')
 
-path_salaries = "/content/drive/My Drive/Colab Notebooks/SIAP/datasets/salaries.csv"
-data_salaries = pd.read_csv(path_salaries)
 
-df = pd.DataFrame(data_master, columns = ['country', 'year', 'sex', 'age', 'suicides_no', 'population', 'suicides/100k pop', 'country-year', 'HDI for year', 'gdp_for_year ($) ', 'gdp_per_capita ($)', 'generation'])
+# print(data_master['gdp_for_year ($)'])
 
-master_train = df[df['year'] >= 1990]
-master_train = master_train[master_train['year'] <= 2008]
+df = pd.DataFrame(data_master, columns=['country', 'year', 'sex', 'age', 'suicides_no', 'population',
+                                        'suicides/100k pop', 'country-year', 'gdp_for_year ($)', 'gdp_per_capita ($)',
+                                        'generation'])
 
-master_test = df[df['year'] >= 2009]
-master_test = master_test[master_test['year'] <= 2016]
-
-print(master_test.shape)
-master_train_x = reshape_data(master_train['year'])
-
-"""# Export podataka"""
-
-master_train.to_csv('master_train.csv')
-master_test.to_csv('master_test.csv')
-
-files.download('master_test.csv')
+# PRAVLJENJE TRAIN I TEST SKUPA NA OSNOVU GODINA
+#
+# master_train = df[df['year'] >= 1990]
+# master_train = master_train[master_train['year'] <= 2008]
+#
+# master_test = df[df['year'] >= 2009]
+# master_test = master_test[master_test['year'] <= 2016]
+#
+#
+# """# Export podataka"""
+#
+# master_train.to_csv('master_train.csv')
+# master_test.to_csv('master_test.csv')
 
 """# RF klasifikator"""
 
-master_train_x = master_train['year'].to_numpy().reshape(-1, 1)
-master_train_y = master_train['suicides/100k pop'].to_numpy().reshape(-1,1)
-
-master_test_x = master_test['year'].to_numpy().reshape(-1,1)
-master_test_y = master_test['suicides/100k pop'].to_numpy().reshape(-1,1)
-
-data_master_RF = RandomForestClassifier(n_estimators=15)
-data_master_RF = data_master_RF.fit(master_train_x, master_train_y)
-y_train_pred = data_master_RF.predict(master_train_x)
-y_test_pred = data_master_RF.predict(master_test_x)
-print("Train accuracy RF: ", accuracy_score(master_train_y, y_train_pred))
-print("Validation accuracy RF: ", accuracy_score(master_test_y, y_test_pred))
+# df = pd.DataFrame(master_train, columns = ['country', 'year', 'sex', 'age', 'suicides_no', 'population', 'suicides/100k pop',
+#                                  'HDI for year', 'gdp_per_capita ($)'])
+#
+# df_test = pd.DataFrame(master_test, columns = ['country', 'year', 'sex', 'age', 'suicides_no', 'population', 'suicides/100k pop',
+#                                  'HDI for year', 'gdp_per_capita ($)'])
+#
+# master_train_x = df[['year', 'population', 'gdp_per_capita ($)']]
+# master_train_y = df['suicides/100k pop']
+#
+# master_test_x = df_test[['year', 'population', 'gdp_per_capita ($)']]
+# master_test_y = df_test['suicides/100k pop']
+#
+#
+# X = np.array(master_train_x)
+# y = np.array(master_train_y)
+#
+# lab_enc = preprocessing.LabelEncoder()
+# training_scores_encoded = lab_enc.fit_transform(y)
+#
+# X_test = np.array(master_test_x)
+# y_test = np.array(master_test_y)
+#
+# training_scores_encoded_test = lab_enc.fit_transform(y_test)
+#
+# data_master_RF = RandomForestClassifier(50)
+# data_master_RF = data_master_RF.fit(X, training_scores_encoded)
+# y_train_pred = data_master_RF.predict(X)
+# y_test_pred = data_master_RF.predict(X_test)
+# print("Train accuracy RF: ", accuracy_score(training_scores_encoded, y_train_pred))
+# print("Validation accuracy RF: ", accuracy_score(training_scores_encoded_test, y_test_pred))
 
