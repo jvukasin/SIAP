@@ -8,38 +8,43 @@ from sklearn.ensemble import RandomForestClassifier #RF klasifikator
 from sklearn import preprocessing
 import xgboost as xgb
 import pandas as pd
+import datasets
 
 
-def reshape_data(input_data):
-    nsamples, nx, ny = input_data.shape
-    return input_data.reshape((nsamples, nx*ny))
+# datasets.init()
+# datasets.combine_datasets()
 
+# def reshape_data(input_data):
+#     nsamples, nx, ny = input_data.shape
+#     return input_data.reshape((nsamples, nx*ny))
+#
+#
+# data_master = pd.read_csv('master.csv')
+# master_train = pd.read_csv('master_train.csv')
+# master_test = pd.read_csv('master_test.csv')
+data_combined = pd.read_csv('combined_datasets.csv')
+#
+#
+# # print(data_master['gdp_for_year ($)'])
+#
+df = pd.DataFrame(data_combined, columns=['age', 'country', 'country-year', 'gdp_for_year ($)', 'gdp_per_capita ($)', 'generation',
+                                        'population', 'salaries', 'sex', 'suicides/100k pop',
+                                        'suicides_no', 'year'])
 
-data_master = pd.read_csv('master.csv')
-master_train = pd.read_csv('master_train.csv')
-master_test = pd.read_csv('master_test.csv')
-data_salaries = pd.read_csv('salaries.csv')
-
-
-# print(data_master['gdp_for_year ($)'])
-
-df = pd.DataFrame(data_master, columns=['country', 'year', 'sex', 'age', 'suicides_no', 'population',
-                                        'suicides/100k pop', 'country-year', 'gdp_for_year ($)', 'gdp_per_capita ($)',
-                                        'generation'])
 
 # PRAVLJENJE TRAIN I TEST SKUPA NA OSNOVU GODINA
-#
-# master_train = df[df['year'] >= 1990]
-# master_train = master_train[master_train['year'] <= 2008]
-#
-# master_test = df[df['year'] >= 2009]
-# master_test = master_test[master_test['year'] <= 2016]
-#
-#
-# """# Export podataka"""
-#
-# master_train.to_csv('master_train.csv')
-# master_test.to_csv('master_test.csv')
+
+master_train = df[df['year'] >= 1990]
+master_train = master_train[master_train['year'] <= 2008]
+
+master_test = df[df['year'] >= 2009]
+master_test = master_test[master_test['year'] <= 2016]
+
+
+"""# Export podataka"""
+
+master_train.to_csv('master_train.csv')
+master_test.to_csv('master_test.csv')
 
 """# RF klasifikator"""
 
