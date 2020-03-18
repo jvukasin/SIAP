@@ -20,17 +20,23 @@ import datasets
 #
 #
 # data_master = pd.read_csv('master.csv')
-# master_train = pd.read_csv('master_train.csv')
-# master_test = pd.read_csv('master_test.csv')
+# master_train = pd.read_csv('master_train1.csv')
+# master_test = pd.read_csv('master_test1.csv')
 data_combined = pd.read_csv('combined_datasets.csv')
 #
 #
 # # print(data_master['gdp_for_year ($)'])
 #
-df = pd.DataFrame(data_combined, columns=['age', 'country', 'country-year', 'gdp_for_year ($)', 'gdp_per_capita ($)', 'generation',
-                                        'population', 'salaries', 'sex', 'suicides/100k pop',
-                                        'suicides_no', 'year'])
+df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
+                                        'population', 'salaries', 'sex', 'suicides/100k pop', 'year'])
 
+for index1, row1 in df.iterrows():
+    if row1['sex'] == 'male':
+        df.at[index1, 'sex'] = 0
+        row1['sex'] = 0
+    elif row1['sex'] == 'female':
+        df.at[index1, 'sex'] = 1
+        row1['sex'] = 1
 
 # PRAVLJENJE TRAIN I TEST SKUPA NA OSNOVU GODINA
 
