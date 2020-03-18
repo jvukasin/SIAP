@@ -19,9 +19,6 @@ import datasets
 #     return input_data.reshape((nsamples, nx*ny))
 #
 #
-# data_master = pd.read_csv('master.csv')
-# master_train = pd.read_csv('master_train1.csv')
-# master_test = pd.read_csv('master_test1.csv')
 data_combined = pd.read_csv('combined_datasets.csv')
 #
 #
@@ -30,27 +27,52 @@ data_combined = pd.read_csv('combined_datasets.csv')
 df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
                                         'population', 'salaries', 'sex', 'suicides/100k pop', 'year'])
 
-for index1, row1 in df.iterrows():
-    if row1['sex'] == 'male':
-        df.at[index1, 'sex'] = 0
-        row1['sex'] = 0
-    elif row1['sex'] == 'female':
-        df.at[index1, 'sex'] = 1
-        row1['sex'] = 1
+countries = df['country']
+finalC = []
 
-# PRAVLJENJE TRAIN I TEST SKUPA NA OSNOVU GODINA
+for i in countries:
+    if i not in finalC:
+        finalC.append(i)
 
-master_train = df[df['year'] >= 1990]
-master_train = master_train[master_train['year'] <= 2008]
-
-master_test = df[df['year'] >= 2009]
-master_test = master_test[master_test['year'] <= 2016]
+print(finalC)
+print(len(finalC))
 
 
-"""# Export podataka"""
-
-master_train.to_csv('master_train.csv')
-master_test.to_csv('master_test.csv')
+# for index1, row1 in df.iterrows():
+#     if row1['sex'] == 'male':
+#         df.at[index1, 'sex'] = 0
+#         row1['sex'] = 0
+#     elif row1['sex'] == 'female':
+#         df.at[index1, 'sex'] = 1
+#         row1['sex'] = 1
+#
+# for index1, row1 in df.iterrows():
+#     if row1['age'] == '5-14 years':
+#         df.at[index1, 'age'] = 1
+#     elif row1['age'] == '15-24 years':
+#         df.at[index1, 'age'] = 2
+#     elif row1['age'] == '25-34 years':
+#         df.at[index1, 'age'] = 3
+#     elif row1['age'] == '35-54 years':
+#         df.at[index1, 'age'] = 4
+#     elif row1['age'] == '55-74 years':
+#         df.at[index1, 'age'] = 5
+#     elif row1['age'] == '75+ years':
+#         df.at[index1, 'age'] = 6
+#
+# # PRAVLJENJE TRAIN I TEST SKUPA NA OSNOVU GODINA
+#
+# master_train = df[df['year'] >= 1990]
+# master_train = master_train[master_train['year'] <= 2008]
+#
+# master_test = df[df['year'] >= 2009]
+# master_test = master_test[master_test['year'] <= 2016]
+#
+#
+# """# Export podataka"""
+#
+# master_train.to_csv('master_train.csv')
+# master_test.to_csv('master_test.csv')
 
 """# RF klasifikator"""
 
