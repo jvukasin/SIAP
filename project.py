@@ -96,19 +96,28 @@ master_test_y = df_test['suicides/100k pop']
 X = np.array(master_train_x)
 y = np.array(master_train_y)
 
-lab_enc = preprocessing.LabelEncoder()
-encoded = lab_enc.fit_transform(y)
+# lab_enc = preprocessing.LabelEncoder()
+# encoded = lab_enc.fit_transform(y)
 
 X_test = np.array(master_test_x)
 y_test = np.array(master_test_y)
 
-lab_enc = preprocessing.LabelEncoder()
-encodedTEST = lab_enc.fit_transform(y_test)
+new_y = y * 100
+new_y = new_y.astype(int)
+
+new_y_test = y_test * 100
+new_y_test = new_y_test.astype(int)
+
+# lab_enc = preprocessing.LabelEncoder()
+# encodedTEST = lab_enc.fit_transform(y_test)
 
 data_master_RF = RandomForestClassifier(n_estimators=50, random_state=42)
-data_master_RF = data_master_RF.fit(X, encoded)
+data_master_RF = data_master_RF.fit(X, new_y)
 y_train_pred = data_master_RF.predict(X)
 y_test_pred = data_master_RF.predict(X_test)
-print("Train accuracy RF: ", accuracy_score(encoded, y_train_pred))
-print("Validation accuracy RF: ", accuracy_score(encodedTEST, y_test_pred))
+print("Train accuracy RF: ", accuracy_score(new_y, y_train_pred))
+print("Validation accuracy RF: ", accuracy_score(new_y_test, y_test_pred))
 
+
+print(new_y_test)
+print(y_test_pred)
