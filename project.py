@@ -25,7 +25,7 @@ data_combined = pd.read_csv('combined_datasets.csv')
 master_train = pd.read_csv('master_train.csv')
 master_test = pd.read_csv('master_test.csv')
 df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
-                                        'population', 'salaries', 'sex', 'suicides/100k pop', 'year'])
+                                        'population', 'salaries', 'sex', 'suicides/100k pop', 'suicides_no', 'year'])
 
 # countries = df['country']
 # finalC = []
@@ -81,43 +81,51 @@ df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
 
 """# RF klasifikator"""
 
-df = pd.DataFrame(master_train, columns=['country', 'year', 'sex', 'age', 'population', 'suicides/100k pop',
+df = pd.DataFrame(master_train, columns=['country', 'year', 'sex', 'age', 'population', 'suicides_no',
                                          'gdp_for_year ($)'])
 
-df_test = pd.DataFrame(master_test, columns=['country', 'year', 'sex', 'age', 'population', 'suicides/100k pop',
+df_test = pd.DataFrame(master_test, columns=['country', 'year', 'sex', 'age', 'population', 'suicides_no',
                                              'gdp_for_year ($)'])
 
 master_train_x = df[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)']]
-master_train_y = df['suicides/100k pop']
+master_train_y = df['suicides_no']
 
 master_test_x = df_test[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)']]
-master_test_y = df_test['suicides/100k pop']
+master_test_y = df_test['suicides_no']
 
-X = np.array(master_train_x)
-y = np.array(master_train_y)
+x = pd.concat([master_train_x, master_test_x])
+y = pd.concat([master_train_y, master_test_y])
+
+X_train, X_test, y_train, y_test = train_test_split(master_train_x, master_train_y, test_size=0.2)
+
+# y_train = (y_train * 100).astype(int)
+# y_test = (y_test * 100).astype(int)
+
+# X = np.array(master_train_x)
+# y = np.array(master_train_y)
 
 # lab_enc = preprocessing.LabelEncoder()
 # encoded = lab_enc.fit_transform(y)
 
-X_test = np.array(master_test_x)
-y_test = np.array(master_test_y)
-
-new_y = y * 100
-new_y = new_y.astype(int)
-
-new_y_test = y_test * 100
-new_y_test = new_y_test.astype(int)
+# X_test = np.array(master_test_x)
+# y_test = np.array(master_test_y)
+#
+# new_y = y * 100
+# new_y = new_y.astype(int)
+#
+# new_y_test = y_test * 100
+# new_y_test = new_y_test.astype(int)
 
 # lab_enc = preprocessing.LabelEncoder()
 # encodedTEST = lab_enc.fit_transform(y_test)
 
 data_master_RF = RandomForestClassifier(n_estimators=50, random_state=42)
-data_master_RF = data_master_RF.fit(X, new_y)
-y_train_pred = data_master_RF.predict(X)
+data_master_RF = data_master_RF.fit(X_train, y_train)
+y_train_pred = data_master_RF.predict(X_train)
 y_test_pred = data_master_RF.predict(X_test)
-print("Train accuracy RF: ", accuracy_score(new_y, y_train_pred))
-print("Validation accuracy RF: ", accuracy_score(new_y_test, y_test_pred))
+print("Train accuracy RF: ", accuracy_score(y_train, y_train_pred))
+print("Validation accuracy RF: ", accuracy_score(y_test, y_test_pred))
 
 
-print(new_y_test)
+print(y_test)
 print(y_test_pred)
