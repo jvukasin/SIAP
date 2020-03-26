@@ -1,14 +1,14 @@
 import os
 import numpy as np
 from sklearn.svm import SVC # SVM klasifikator
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier # KNN
-from sklearn.ensemble import RandomForestClassifier #RF klasifikator
+import random_forest_alg as rf
+import xgboost_alg as xgb
 from sklearn import preprocessing
-import xgboost as xgb
+import structure_colum_string_values as scsv
 import pandas as pd
-import datasets
 
 
 # datasets.init()
@@ -27,56 +27,21 @@ master_test = pd.read_csv('master_test.csv')
 df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
                                         'population', 'salaries', 'sex', 'suicides/100k pop', 'suicides_no', 'year'])
 
-# countries = df['country']
-# finalC = []
-#
-# for i in countries:
-#     if i not in finalC:
-#         finalC.append(i)
-#
-# for index1, row1 in df.iterrows():
-#     for contr in finalC:
-#         if row1['country'] == contr:
-#             df.at[index1, 'country'] = finalC.index(contr) + 1
-#             break
-#
-# for index1, row1 in df.iterrows():
-#     if row1['sex'] == 'male':
-#         df.at[index1, 'sex'] = 0
-#         row1['sex'] = 0
-#     elif row1['sex'] == 'female':
-#         df.at[index1, 'sex'] = 1
-#         row1['sex'] = 1
-#
-# for index1, row1 in df.iterrows():
-#     if row1['age'] == '5-14 years':
-#         df.at[index1, 'age'] = 1
-#     elif row1['age'] == '15-24 years':
-#         df.at[index1, 'age'] = 2
-#     elif row1['age'] == '25-34 years':
-#         df.at[index1, 'age'] = 3
-#     elif row1['age'] == '35-54 years':
-#         df.at[index1, 'age'] = 4
-#     elif row1['age'] == '55-74 years':
-#         df.at[index1, 'age'] = 5
-#     elif row1['age'] == '75+ years':
-#         df.at[index1, 'age'] = 6
-#
-# # PRAVLJENJE TRAIN I TEST SKUPA NA OSNOVU GODINA
-#
+
+"""# Prebacivanje stringova iz kolona u intove zbog algoritama"""
+# scsv.string_to_int_columns(df)
+
+"""# PRAVLJENJE TRAIN I TEST SKUPA NA OSNOVU GODINA"""
 # master_train = df[df['year'] >= 1990]
 # master_train = master_train[master_train['year'] <= 2008]
 #
 # master_test = df[df['year'] >= 2009]
 # master_test = master_test[master_test['year'] <= 2016]
 #
-#
-# """# Export podataka"""
+# Export podataka
 #
 # master_train.to_csv('master_train.csv')
 # master_test.to_csv('master_test.csv')
-
-
 
 
 """# RF klasifikator"""
@@ -93,39 +58,34 @@ master_train_y = df['suicides_no']
 master_test_x = df_test[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)']]
 master_test_y = df_test['suicides_no']
 
-x = pd.concat([master_train_x, master_test_x])
-y = pd.concat([master_train_y, master_test_y])
+# x = pd.concat([master_train_x, master_test_x])
+# y = pd.concat([master_train_y, master_test_y])
 
-X_train, X_test, y_train, y_test = train_test_split(master_train_x, master_train_y, test_size=0.2)
+# X_train, X_test, y_train, y_test = train_test_split(master_train_x, master_train_y, test_size=0.2)
 
-# y_train = (y_train * 100).astype(int)
-# y_test = (y_test * 100).astype(int)
+X = np.array(master_train_x)
+y = np.array(master_train_y)
 
-# X = np.array(master_train_x)
-# y = np.array(master_train_y)
+X_test = np.array(master_test_x)
+y_test = np.array(master_test_y)
 
-# lab_enc = preprocessing.LabelEncoder()
-# encoded = lab_enc.fit_transform(y)
+y_train = (y * 100).astype(int)
+y_test = (y_test * 100).astype(int)
 
-# X_test = np.array(master_test_x)
-# y_test = np.array(master_test_y)
-#
-# new_y = y * 100
-# new_y = new_y.astype(int)
-#
-# new_y_test = y_test * 100
-# new_y_test = new_y_test.astype(int)
+lab_enc = preprocessing.LabelEncoder()
+encoded = lab_enc.fit_transform(y)
 
-# lab_enc = preprocessing.LabelEncoder()
-# encodedTEST = lab_enc.fit_transform(y_test)
+new_y = y * 100
+new_y = new_y.astype(int)
 
-data_master_RF = RandomForestClassifier(n_estimators=50, random_state=42)
-data_master_RF = data_master_RF.fit(X_train, y_train)
-y_train_pred = data_master_RF.predict(X_train)
-y_test_pred = data_master_RF.predict(X_test)
-print("Train accuracy RF: ", accuracy_score(y_train, y_train_pred))
-print("Validation accuracy RF: ", accuracy_score(y_test, y_test_pred))
+new_y_test = y_test * 100
+new_y_test = new_y_test.astype(int)
 
+lab_enc = preprocessing.LabelEncoder()
+encodedTEST = lab_enc.fit_transform(y_test)
 
-print(y_test)
-print(y_test_pred)
+"""# RandomForest algoritam"""
+rf.rf_algoritam(X, y_train, X_test, y_test)
+
+"""# XGBoost algoritam"""
+xgb.xbg_algoraim(X, y_train, X_test, y_test)
