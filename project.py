@@ -61,7 +61,6 @@ master_test_y = df_test['suicides_no']
 # x = pd.concat([master_train_x, master_test_x])
 # y = pd.concat([master_train_y, master_test_y])
 
-# X_train, X_test, y_train, y_test = train_test_split(master_train_x, master_train_y, test_size=0.2)
 
 X = np.array(master_train_x)
 y = np.array(master_train_y)

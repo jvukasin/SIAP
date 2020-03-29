@@ -13,5 +13,5 @@ def xbg_algoraim(X_train, y_train, X_test, y_test):
 
     # evaluate predictions
     accuracy = accuracy_score(y_test, predictions)
-    print("Accuracy: %.2f%%" % (accuracy * 100.0))
+    print("Validation accuracy XGBoost: %.2f%%" % (accuracy * 100.0))
 
