@@ -19,7 +19,6 @@ import pandas as pd
 #     return input_data.reshape((nsamples, nx*ny))
 #
 # # print(data_master['gdp_for_year ($)'])
-#
 
 data_combined = pd.read_csv('combined_datasets.csv')
 master_train = pd.read_csv('master_train.csv')
@@ -47,10 +46,10 @@ df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
 """# RF klasifikator"""
 
 df = pd.DataFrame(master_train, columns=['country', 'year', 'sex', 'age', 'population', 'suicides_no',
-                                         'gdp_for_year ($)'])
+                                         'gdp_for_year ($)']) # + salaries
 
 df_test = pd.DataFrame(master_test, columns=['country', 'year', 'sex', 'age', 'population', 'suicides_no',
-                                             'gdp_for_year ($)'])
+                                             'gdp_for_year ($)']) # + salaries
 
 master_train_x = df[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)']]
 master_train_y = df['suicides_no']
@@ -61,6 +60,7 @@ master_test_y = df_test['suicides_no']
 # x = pd.concat([master_train_x, master_test_x])
 # y = pd.concat([master_train_y, master_test_y])
 
+# master_train_x = pd.get_dummies(master_train_x) # get dummies stavlja true false za stringove, pogledati fajl POGLEDAJPAOBRISI
 
 X = np.array(master_train_x)
 y = np.array(master_train_y)

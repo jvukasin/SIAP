@@ -3,6 +3,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.tree import export_graphviz
 import pydot
 
+
 def rf_algoritam(X_train, y_train, X_test, y_test, feature_list):
 
     data_master_RF = RandomForestClassifier(n_estimators=50, random_state=42)
