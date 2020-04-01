@@ -67,6 +67,22 @@ def merge_cities_for_one_country():
     final_sunshine.to_csv("combined_sunshine_median.csv")
 
 
+def insert_in_master():
 
-merge_cities_for_one_country()
+    sunshine = pd.read_csv('combined_sunshine_median.csv')
+    master = pd.read_csv('combined_datasets.csv')
+
+    new_master = pd.DataFrame()
+
+    for index1, row1 in master.iterrows():
+        for index2, row2 in sunshine.iterrows():
+            if row1['country'] == row2['country']:
+                row1['sunshine_hours_per_year'] = row2['hours']
+
+        new_master = new_master.append(row1)
+
+    new_master.to_csv('combined_datasets_w_sunshine.csv')
+
+
+insert_in_master()
 
