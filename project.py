@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier # KNN
 import random_forest_alg as rf
 import xgboost_alg as xgb
+import pca_alg as pca
 from sklearn import preprocessing
 import structure_colum_string_values as scsv
 import pandas as pd
@@ -46,15 +47,15 @@ df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
 """# RF klasifikator"""
 
 df = pd.DataFrame(master_train, columns=['country', 'year', 'sex', 'age', 'population', 'suicides_no',
-                                         'gdp_for_year ($)']) # + salaries
+                                         'gdp_for_year ($)', 'salaries'])
 
 df_test = pd.DataFrame(master_test, columns=['country', 'year', 'sex', 'age', 'population', 'suicides_no',
-                                             'gdp_for_year ($)']) # + salaries
+                                             'gdp_for_year ($)', 'salaries'])
 
-master_train_x = df[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)']]
+master_train_x = df[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'salaries']]
 master_train_y = df['suicides_no']
 
-master_test_x = df_test[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)']]
+master_test_x = df_test[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'salaries']]
 master_test_y = df_test['suicides_no']
 
 # x = pd.concat([master_train_x, master_test_x])
@@ -87,4 +88,7 @@ encodedTEST = lab_enc.fit_transform(y_test)
 rf.rf_algoritam(X, y_train, X_test, y_test)
 
 """# XGBoost algoritam"""
-xgb.xbg_algoraim(X, y_train, X_test, y_test)
+# xgb.xbg_algoritam(X, y_train, X_test, y_test)
+
+"""# PCA algoritam"""
+pca.pca_algoritam(X, y_train, X_test, y_test)
