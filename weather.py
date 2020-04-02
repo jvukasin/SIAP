@@ -1,4 +1,5 @@
 import pandas as pd
+import math
 from statistics import median
 import numpy as np
 import csv
@@ -75,11 +76,16 @@ def insert_in_master():
     new_master = pd.DataFrame()
 
     for index1, row1 in master.iterrows():
+        row1['sunshine_hours_per_year'] = -1
         for index2, row2 in sunshine.iterrows():
-            if row1['country'] == row2['country']:
-                row1['sunshine_hours_per_year'] = row2['hours']
+                if row1['country'] == row2['country']:
+                    row1['sunshine_hours_per_year'] = float(row2['hours'])
 
-        new_master = new_master.append(row1)
+        print(index1)
+        if row1['sunshine_hours_per_year'] != -1:
+            new_master = new_master.append(row1)
+        else:
+            print("ruled out")
 
     new_master.to_csv('combined_datasets_w_sunshine.csv')
 

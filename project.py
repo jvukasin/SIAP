@@ -35,12 +35,12 @@ df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
 """# PRAVLJENJE TRAIN I TEST SKUPA NA OSNOVU GODINA"""
 # master_train = df[df['year'] >= 1990]
 # master_train = master_train[master_train['year'] <= 2008]
-# #
+# # #
 # master_test = df[df['year'] >= 2009]
 # master_test = master_test[master_test['year'] <= 2016]
-# #
-# # Export podataka
-# #
+# # #
+# # # Export podataka
+# # #
 # master_train.to_csv('master_train.csv')
 # master_test.to_csv('master_test.csv')
 
