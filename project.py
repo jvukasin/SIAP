@@ -38,12 +38,15 @@ df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
 # # #
 # master_test = df[df['year'] >= 2009]
 # master_test = master_test[master_test['year'] <= 2016]
-# # #
-# # # Export podataka
-# # #
+#
+# # Izbacivanje zemalja koje postoje u jednom skupu a u drugom ne
+# master_train = master_train[master_train['country'] != 'Azerbaijan']
+# master_test = master_test[master_test['country'] != 'Bosnia and Herzegovina']
+# master_test = master_test[master_test['country'] != 'Turkey']
+# # Export podataka
+#
 # master_train.to_csv('master_train.csv')
 # master_test.to_csv('master_test.csv')
-
 
 """# RF klasifikator"""
 
@@ -62,8 +65,8 @@ master_test_y = df_test['suicides_no']
 # x = pd.concat([master_train_x, master_test_x])
 # y = pd.concat([master_train_y, master_test_y])
 
-# master_train_x = pd.get_dummies(master_train_x) # get dummies stavlja true false za stringove, pogledati fajl POGLEDAJPAOBRISI
-
+master_train_x = pd.get_dummies(master_train_x)
+master_test_x = pd.get_dummies(master_test_x)
 
 X = np.array(master_train_x)
 y = np.array(master_train_y)
@@ -71,29 +74,15 @@ y = np.array(master_train_y)
 X_test = np.array(master_test_x)
 y_test = np.array(master_test_y)
 
-y_train = (y * 100).astype(int)
-y_test = (y_test * 100).astype(int)
-
-lab_enc = preprocessing.LabelEncoder()
-encoded = lab_enc.fit_transform(y)
-
-new_y = y * 100
-new_y = new_y.astype(int)
-
-new_y_test = y_test * 100
-new_y_test = new_y_test.astype(int)
-
-lab_enc = preprocessing.LabelEncoder()
-encodedTEST = lab_enc.fit_transform(y_test)
 
 """# RandomForest algoritam"""
-# rf.rf_algoritam(X, y_train, X_test, y_test)
+rf.rf_algoritam(X, y, X_test, y_test)
 
 """# XGBoost algoritam"""
-# xgb.xbg_algoritam(X, y_train, X_test, y_test)
+xgb.xbg_algoritam(X, y, X_test, y_test)
 
 """# PCA algoritam"""
-# pca.pca_algoritam(X, y_train, X_test, y_test)
+# pca.pca_algoritam(X, y, X_test, y_test)
 
 """# Linear regression algoritam"""
-lr.linear_regression_alg(X, y_train, X_test, y_test)
+# lr.linear_regression_alg(X, y, X_test, y_test)
