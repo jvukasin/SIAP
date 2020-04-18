@@ -1,11 +1,14 @@
 import xgboost as xgb
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import explained_variance_score
+from sklearn.model_selection import cross_val_score
+import numpy as np
 
 
 def xbg_algoritam(X_train, y_train, X_test, y_test):
     # fit model no training data
     model = xgb.XGBClassifier()
+
     model.fit(X_train, y_train)
 
     # make predictions for test data
@@ -17,5 +20,5 @@ def xbg_algoritam(X_train, y_train, X_test, y_test):
     print("Validation accuracy XGBoost: %.2f%%" % (accuracy * 100.0))
 
     variance_score = explained_variance_score(y_test, y_pred)
-    print("Explained variance score XGBoost WITH Y_PRED: %.2f%%" % (variance_score * 100.0))
+    print("Explained variance score XGBoost: %.2f%%" % (variance_score * 100.0))
 

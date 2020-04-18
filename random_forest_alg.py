@@ -3,9 +3,11 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import explained_variance_score
 from sklearn.tree import export_graphviz
 import pydot
+import numpy as np
+import matplotlib.pyplot as plt
 
 
-def rf_algoritam(X_train, y_train, X_test, y_test):
+def rf_algoritam(X_train, y_train, X_test, y_test, features):
 
     data_master_RF = RandomForestClassifier(n_estimators=50, random_state=42)
     data_master_RF = data_master_RF.fit(X_train, y_train)
@@ -20,6 +22,9 @@ def rf_algoritam(X_train, y_train, X_test, y_test):
     print("Explained variance score RandomForest: %.2f%%" % (variance_score * 100.0))
     # slika_stabla_RF(data_master_RF, feature_list)
 
+    #plot feature importance from dataset
+    feature_importance(data_master_RF, features)
+
 
 # def slika_stabla_RF(data_master_RF, feature_list):
 #     # Pull out one tree from the forest
@@ -30,4 +35,15 @@ def rf_algoritam(X_train, y_train, X_test, y_test):
 #     (graph,) = pydot.graph_from_dot_file('tree.dot')
 #     # Write graph to a png file
 #     graph.write_png('tree.png')
+
+def feature_importance(forest, features):
+    importances = forest.feature_importances_
+    indices = np.argsort(importances)
+
+    plt.figure(1)
+    plt.title('Feature Importances')
+    plt.barh(range(len(indices)), importances[indices], color='b', align='center')
+    plt.yticks(range(len(indices)), features[indices])
+    plt.xlabel('Relative Importance')
+    plt.show()
 

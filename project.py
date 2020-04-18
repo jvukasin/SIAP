@@ -25,7 +25,7 @@ import pandas as pd
 data_combined = pd.read_csv('combined_datasets_w_sunshine.csv')
 master_train = pd.read_csv('master_train.csv')
 master_test = pd.read_csv('master_test.csv')
-df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
+df2 = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
                                         'population', 'salaries', 'sex', 'suicides/100k pop', 'suicides_no', 'sunshine_hours_per_year', 'year'])
 
 
@@ -56,14 +56,13 @@ df = pd.DataFrame(master_train, columns=['country', 'year', 'sex', 'age', 'popul
 df_test = pd.DataFrame(master_test, columns=['country', 'year', 'sex', 'age', 'population', 'suicides_no',
                                              'gdp_for_year ($)','sunshine_hours_per_year', 'salaries'])
 
+
 master_train_x = df[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year', 'salaries']]
 master_train_y = df['suicides_no']
 
 master_test_x = df_test[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year', 'salaries']]
 master_test_y = df_test['suicides_no']
 
-# x = pd.concat([master_train_x, master_test_x])
-# y = pd.concat([master_train_y, master_test_y])
 
 master_train_x = pd.get_dummies(master_train_x)
 master_test_x = pd.get_dummies(master_test_x)
@@ -74,11 +73,24 @@ y = np.array(master_train_y)
 X_test = np.array(master_test_x)
 y_test = np.array(master_test_y)
 
+features = master_train_x.columns
 
 """# RandomForest algoritam"""
-rf.rf_algoritam(X, y, X_test, y_test)
+# rf.rf_algoritam(X, y, X_test, y_test, features)
 
 """# XGBoost algoritam"""
+iks = df2[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year', 'salaries']]
+ipsilon = df2['suicides_no']
+train_xs, valid_xs, train_ys, valid_ys = train_test_split(iks, ipsilon, test_size=0.25, random_state=0)
+
+trX = pd.get_dummies(train_xs)
+tsX = pd.get_dummies(valid_xs)
+
+X = np.array(trX)
+y = np.array(train_ys)
+
+X_test = np.array(tsX)
+y_test = np.array(valid_ys)
 xgb.xbg_algoritam(X, y, X_test, y_test)
 
 """# PCA algoritam"""
