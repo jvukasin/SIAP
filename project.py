@@ -79,22 +79,22 @@ features = master_train_x.columns
 # rf.rf_algoritam(X, y, X_test, y_test, features)
 
 """# XGBoost algoritam"""
-iks = df2[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year', 'salaries']]
-ipsilon = df2['suicides_no']
-train_xs, valid_xs, train_ys, valid_ys = train_test_split(iks, ipsilon, test_size=0.25, random_state=0)
-
-trX = pd.get_dummies(train_xs)
-tsX = pd.get_dummies(valid_xs)
-
-X = np.array(trX)
-y = np.array(train_ys)
-
-X_test = np.array(tsX)
-y_test = np.array(valid_ys)
+# iks = df2[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year', 'salaries']]
+# ipsilon = df2['suicides_no']
+# train_xs, valid_xs, train_ys, valid_ys = train_test_split(iks, ipsilon, test_size=0.25, random_state=0)
+#
+# trX = pd.get_dummies(train_xs)
+# tsX = pd.get_dummies(valid_xs)
+#
+# X = np.array(trX)
+# y = np.array(train_ys)
+#
+# X_test = np.array(tsX)
+# y_test = np.array(valid_ys)
 xgb.xbg_algoritam(X, y, X_test, y_test)
 
 """# PCA algoritam"""
 # pca.pca_algoritam(X, y, X_test, y_test)
 
 """# Linear regression algoritam"""
-# lr.linear_regression_alg(X, y, X_test, y_test)
+# lr.linear_regression_alg(master_train_x, master_train_y, master_test_x, master_test_y)
