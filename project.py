@@ -25,7 +25,7 @@ import pandas as pd
 data_combined = pd.read_csv('combined_datasets_w_sunshine.csv')
 master_train = pd.read_csv('master_train.csv')
 master_test = pd.read_csv('master_test.csv')
-df2 = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
+df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
                                         'population', 'salaries', 'sex', 'suicides/100k pop', 'suicides_no', 'sunshine_hours_per_year', 'year'])
 
 
@@ -79,18 +79,18 @@ features = master_train_x.columns
 # rf.rf_algoritam(X, y, X_test, y_test, features)
 
 """# XGBoost algoritam"""
-iks = df2[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year', 'salaries']]
-ipsilon = df2['suicides_no']
-train_xs, valid_xs, train_ys, valid_ys = train_test_split(iks, ipsilon, test_size=0.25, random_state=0)
-
-trX = pd.get_dummies(train_xs)
-tsX = pd.get_dummies(valid_xs)
-
-X = np.array(trX)
-y = np.array(train_ys)
-
-X_test = np.array(tsX)
-y_test = np.array(valid_ys)
+# iks = df2[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year', 'salaries']]
+# ipsilon = df2['suicides_no']
+# train_xs, valid_xs, train_ys, valid_ys = train_test_split(iks, ipsilon, test_size=0.25, random_state=0)
+#
+# trX = pd.get_dummies(train_xs)
+# tsX = pd.get_dummies(valid_xs)
+#
+# X = np.array(trX)
+# y = np.array(train_ys)
+#
+# X_test = np.array(tsX)
+# y_test = np.array(valid_ys)
 xgb.xbg_algoritam(X, y, X_test, y_test)
 
 """# PCA algoritam"""

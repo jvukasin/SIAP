@@ -7,7 +7,7 @@ import numpy as np
 
 def xbg_algoritam(X_train, y_train, X_test, y_test):
     # fit model no training data
-    model = xgb.XGBClassifier()
+    model = xgb.XGBClassifier(n_estimators=50)
 
     model.fit(X_train, y_train)
 
