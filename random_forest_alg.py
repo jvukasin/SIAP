@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 def rf_algoritam(X_train, y_train, X_test, y_test, features):
 
-    data_master_RF = RandomForestClassifier(n_estimators=50, random_state=42)
+    data_master_RF = RandomForestClassifier(n_estimators=20, random_state=42)
     data_master_RF = data_master_RF.fit(X_train, y_train)
     y_train_pred = data_master_RF.predict(X_train)
     y_test_pred = data_master_RF.predict(X_test)

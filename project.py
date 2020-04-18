@@ -97,4 +97,4 @@ xgb.xbg_algoritam(X, y, X_test, y_test)
 # pca.pca_algoritam(X, y, X_test, y_test)
 
 """# Linear regression algoritam"""
-# lr.linear_regression_alg(X, y, X_test, y_test)
+# lr.linear_regression_alg(master_train_x, master_train_y, master_test_x, master_test_y)
