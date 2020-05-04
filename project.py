@@ -1,6 +1,5 @@
 import os
 import numpy as np
-from sklearn.svm import SVC # SVM klasifikator
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier # KNN
@@ -8,8 +7,9 @@ import random_forest_alg as rf
 import xgboost_alg as xgb
 import pca_alg as pca
 import linear_regression_alg as lr
+import gradient_boosted_tree_alg as gbt
+import svr_alg as svr
 from sklearn import preprocessing
-import structure_colum_string_values as scsv
 import pandas as pd
 
 
@@ -76,25 +76,26 @@ y_test = np.array(master_test_y)
 features = master_train_x.columns
 
 """# RandomForest algoritam"""
+print('====================RF====================')
 # rf.rf_algoritam(X, y, X_test, y_test, features)
 
 """# XGBoost algoritam"""
-# iks = df2[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year', 'salaries']]
-# ipsilon = df2['suicides_no']
-# train_xs, valid_xs, train_ys, valid_ys = train_test_split(iks, ipsilon, test_size=0.25, random_state=0)
-#
-# trX = pd.get_dummies(train_xs)
-# tsX = pd.get_dummies(valid_xs)
-#
-# X = np.array(trX)
-# y = np.array(train_ys)
-#
-# X_test = np.array(tsX)
-# y_test = np.array(valid_ys)
-xgb.xbg_algoritam(X, y, X_test, y_test)
+print('==================XGBoost=================')
+# xgb.xbg_algoritam(X, y, X_test, y_test)
 
 """# PCA algoritam"""
+print('====================PCA===================')
 # pca.pca_algoritam(X, y, X_test, y_test)
 
 """# Linear regression algoritam"""
+print('=================Linear Reg===============')
 # lr.linear_regression_alg(master_train_x, master_train_y, master_test_x, master_test_y)
+
+"""# Gradient Boosted Tree"""
+print('====================GBT===================')
+gbt.gbt_algorythm(X, y, X_test, y_test)
+
+"""# Support Vector Regression (SVR)"""
+print('====================SVR===================')
+svr.svr_algorithm(X, y, X_test, y_test)
+

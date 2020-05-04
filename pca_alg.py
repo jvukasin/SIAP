@@ -23,6 +23,7 @@ def pca_algoritam(x_train, y_train, x_test, y_test):
     x_test = pca.transform(x_test)
 
     """# RandomForest algoritam"""
+    print('===============rf - pca===============')
     rf.rf_algoritam(x_train, y_train, x_test, y_test)
 
     """# XGBoost algoritam"""

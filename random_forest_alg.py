@@ -22,6 +22,8 @@ def rf_algoritam(X_train, y_train, X_test, y_test, features):
     print("Explained variance score RandomForest: %.2f%%" % (variance_score * 100.0))
     # slika_stabla_RF(data_master_RF, feature_list)
 
+    # KAO MERU R^2 I ROOT MEAN SQUARE VALUE
+
     #plot feature importance from dataset
     feature_importance(data_master_RF, features)
 

@@ -6,7 +6,6 @@ from datetime import datetime
 from sklearn import preprocessing
 from sklearn.model_selection import KFold
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import accuracy_score
 from sklearn.metrics import explained_variance_score
 
 def linear_regression_alg(x_train, y_train, x_test, y_test):
