@@ -1,6 +1,8 @@
 import xgboost as xgb
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import explained_variance_score
+from sklearn.metrics import r2_score
+from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import cross_val_score
 import numpy as np
 
@@ -22,3 +24,8 @@ def xbg_algoritam(X_train, y_train, X_test, y_test):
     variance_score = explained_variance_score(y_test, y_pred)
     print("Explained variance score XGBoost: %.2f%%" % (variance_score * 100.0))
 
+    r2 = r2_score(y_test, y_pred)
+    print("R^2 score XGBoost: ", r2)
+
+    mean = mean_squared_error(y_test, y_pred)
+    print("Mean squared error XGBoost: ", mean)

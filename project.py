@@ -54,13 +54,15 @@ df = pd.DataFrame(master_train, columns=['country', 'year', 'sex', 'age', 'popul
                                          'gdp_for_year ($)', 'sunshine_hours_per_year', 'salaries'])
 
 df_test = pd.DataFrame(master_test, columns=['country', 'year', 'sex', 'age', 'population', 'suicides_no',
-                                             'gdp_for_year ($)','sunshine_hours_per_year', 'salaries'])
+                                             'gdp_for_year ($)', 'sunshine_hours_per_year', 'salaries'])
 
 
-master_train_x = df[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year', 'salaries']]
+master_train_x = df[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year',
+                     'salaries']]
 master_train_y = df['suicides_no']
 
-master_test_x = df_test[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year', 'salaries']]
+master_test_x = df_test[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year',
+                         'salaries']]
 master_test_y = df_test['suicides_no']
 
 
@@ -76,7 +78,15 @@ y_test = np.array(master_test_y)
 features = master_train_x.columns
 
 """# RandomForest algoritam"""
-# rf.rf_algoritam(X, y, X_test, y_test, features)
+# lab_enc = preprocessing.LabelEncoder()
+# print('pre')
+# print(y)
+# y = lab_enc.fit_transform(y)
+# print('posle')
+# print(y)
+# y_test = lab_enc.fit_transform(y_test)
+
+rf.rf_algoritam(X, y, X_test, y_test, features)
 
 """# XGBoost algoritam"""
 # iks = df2[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year', 'salaries']]
@@ -91,7 +101,7 @@ features = master_train_x.columns
 #
 # X_test = np.array(tsX)
 # y_test = np.array(valid_ys)
-xgb.xbg_algoritam(X, y, X_test, y_test)
+# xgb.xbg_algoritam(X, y, X_test, y_test)
 
 """# PCA algoritam"""
 # pca.pca_algoritam(X, y, X_test, y_test)

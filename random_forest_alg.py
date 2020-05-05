@@ -1,6 +1,8 @@
 from sklearn.ensemble import RandomForestClassifier #RF klasifikator
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import explained_variance_score
+from sklearn.metrics import r2_score
+from sklearn.metrics import mean_squared_error
 from sklearn.tree import export_graphviz
 import pydot
 import numpy as np
@@ -20,6 +22,12 @@ def rf_algoritam(X_train, y_train, X_test, y_test, features):
 
     variance_score = explained_variance_score(y_test, y_test_pred)
     print("Explained variance score RandomForest: %.2f%%" % (variance_score * 100.0))
+
+    r2 = r2_score(y_test, y_test_pred)
+    print("R^2 score RandomForest: ", r2)
+
+    mean = mean_squared_error(y_test, y_test_pred)
+    print("Mean squared error RandomForest: ", mean)
     # slika_stabla_RF(data_master_RF, feature_list)
 
     #plot feature importance from dataset
