@@ -6,7 +6,7 @@ from datetime import datetime
 from sklearn import preprocessing
 from sklearn.model_selection import KFold
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import explained_variance_score
+from sklearn.metrics import explained_variance_score, r2_score, mean_squared_error
 
 def linear_regression_alg(x_train, y_train, x_test, y_test):
     model = LinearRegression()
@@ -45,3 +45,12 @@ def linear_regression_alg(x_train, y_train, x_test, y_test):
 
     variance_score = explained_variance_score(y_test, prediction)
     print("Explained variance score Linear Regression: %.2f%%" % (variance_score * 100.0))
+
+    r2 = r2_score(y_test, prediction)
+    print("R^2 score Linear Regression: %.2f" % r2)
+
+    mean = mean_squared_error(y_test, prediction)
+    print("Mean squared error Linear Regression: %.2f" % mean)
+
+    rmse = np.sqrt(mean)
+    print("Root mean square error Linear Regression: %.2f" % rmse)

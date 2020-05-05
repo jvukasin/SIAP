@@ -25,6 +25,8 @@ import pandas as pd
 data_combined = pd.read_csv('combined_datasets_w_sunshine.csv')
 master_train = pd.read_csv('master_train.csv')
 master_test = pd.read_csv('master_test.csv')
+master_train_classification = pd.read_csv('master_train_classification.csv')
+master_test_classification = pd.read_csv('master_test_classification.csv')
 df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
                                         'population', 'salaries', 'sex', 'suicides/100k pop', 'suicides_no', 'sunshine_hours_per_year', 'year'])
 
@@ -47,8 +49,6 @@ df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
 #
 # master_train.to_csv('master_train.csv')
 # master_test.to_csv('master_test.csv')
-
-"""# RF klasifikator"""
 
 df = pd.DataFrame(master_train, columns=['country', 'year', 'sex', 'age', 'population', 'suicides_no',
                                          'gdp_for_year ($)', 'sunshine_hours_per_year', 'salaries'])
@@ -86,8 +86,10 @@ features = master_train_x.columns
 # print(y)
 # y_test = lab_enc.fit_transform(y_test)
 
+print('*****************REGRESSION*****************')
+
 print('====================RF====================')
-# rf.rf_algoritam(X, y, X_test, y_test, features)
+rf.rf_algoritam(X, y, X_test, y_test, features)
 
 """# XGBoost algoritam"""
 print('==================XGBoost=================')
@@ -103,9 +105,44 @@ print('=================Linear Reg===============')
 
 """# Gradient Boosted Tree"""
 print('====================GBT===================')
-gbt.gbt_algorythm(X, y, X_test, y_test)
+# gbt.gbt_algorythm(X, y, X_test, y_test)
 
 """# Support Vector Regression (SVR)"""
 print('====================SVR===================')
-svr.svr_algorithm(X, y, X_test, y_test)
+# svr.svr_algorithm(X, y, X_test, y_test)
 
+
+print('*****************CLASSIFICATION*****************')
+
+df_train_classification = pd.DataFrame(master_train_classification, columns=['country', 'year', 'sex', 'age',
+                                                                             'population', 'suicides/100k pop',
+                                                                             'gdp_for_year ($)',
+                                                                             'sunshine_hours_per_year', 'salaries'])
+
+df_test_classification = pd.DataFrame(master_test_classification, columns=['country', 'year', 'sex', 'age', 'population',
+                                                                           'suicides/100k pop', 'gdp_for_year ($)',
+                                                                           'sunshine_hours_per_year', 'salaries'])
+
+
+master_train_x = df_train_classification[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)',
+                                          'sunshine_hours_per_year', 'salaries']]
+master_train_y = df_train_classification['suicides/100k pop']
+
+master_test_x = df_test_classification[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)',
+                                        'sunshine_hours_per_year', 'salaries']]
+master_test_y = df_test_classification['suicides/100k pop']
+
+
+master_train_x = pd.get_dummies(master_train_x)
+master_test_x = pd.get_dummies(master_test_x)
+
+X = np.array(master_train_x)
+y = np.array(master_train_y)
+
+X_test = np.array(master_test_x)
+y_test = np.array(master_test_y)
+
+features = master_train_x.columns
+
+print('====================RF====================')
+rf.rf_algoritam(X, y, X_test, y_test, features)

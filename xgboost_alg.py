@@ -25,7 +25,10 @@ def xbg_algoritam(X_train, y_train, X_test, y_test):
     print("Explained variance score XGBoost: %.2f%%" % (variance_score * 100.0))
 
     r2 = r2_score(y_test, y_pred)
-    print("R^2 score XGBoost: ", r2)
+    print("R2 score XGBoost: %.2f" % r2)
 
     mean = mean_squared_error(y_test, y_pred)
-    print("Mean squared error XGBoost: ", mean)
+    print("Mean squared error XGBoost: %.2f" % mean)
+
+    rmean = np.sqrt(mean)
+    print("Root mean squared error XGBoost: %.2f" % rmean)
