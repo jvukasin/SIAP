@@ -1,6 +1,6 @@
 from sklearn.ensemble import RandomForestClassifier #RF klasifikator
 from sklearn.metrics import accuracy_score
-from sklearn.metrics import explained_variance_score, r2_score, mean_squared_error, f1_score
+from sklearn.metrics import explained_variance_score, r2_score, mean_squared_error, f1_score, precision_score, recall_score
 from sklearn.tree import export_graphviz
 import pydot
 import numpy as np
@@ -33,6 +33,14 @@ def rf_algoritam(X_train, y_train, X_test, y_test, features):
     # print('razlika: ', set(y_test) - set(y_test_pred))
     f1 = f1_score(y_test, y_test_pred, average='weighted', labels=np.unique(y_test_pred))
     print('f1 score RandomForest: ', f1)
+
+    precision = precision_score(y_test, y_test_pred, average='micro')
+    print('precision score RandomForest: ', precision)
+
+    recall = recall_score(y_test, y_test_pred, average='micro')
+    print('recall score RandomForest: ', recall)
+
+
 
     # slika_stabla_RF(data_master_RF, feature_list)
 
