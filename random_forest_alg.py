@@ -3,6 +3,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import explained_variance_score, r2_score, mean_squared_error, f1_score, precision_score, recall_score
 from sklearn.tree import export_graphviz
 import pydot
+from sklearn.model_selection import cross_val_score
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -13,6 +14,14 @@ def rf_algoritam(X_train, y_train, X_test, y_test, features):
     data_master_RF = data_master_RF.fit(X_train, y_train)
     y_train_pred = data_master_RF.predict(X_train)
     y_test_pred = data_master_RF.predict(X_test)
+
+
+    '''Cross-validation'''
+    cv = cross_val_score(data_master_RF, X_train, y_train, cv=5)
+    print('cross validation')
+    print(cv)
+    print("Mean of cv: ", cv.mean())
+    print("Std of cv: ", cv.std())
 
     # print("Train accuracy RF: ", accuracy_score(y_train, y_train_pred))
     accuracy = accuracy_score(y_test, y_test_pred)
@@ -40,23 +49,11 @@ def rf_algoritam(X_train, y_train, X_test, y_test, features):
     recall = recall_score(y_test, y_test_pred, average='micro')
     print('recall score RandomForest: ', recall)
 
-
-
     # slika_stabla_RF(data_master_RF, feature_list)
 
     # plot feature importance from dataset
     feature_importance(data_master_RF, features)
 
-
-# def slika_stabla_RF(data_master_RF, feature_list):
-#     # Pull out one tree from the forest
-#     tree = data_master_RF.estimators_[5]
-#     # Export the image to a dot file
-#     export_graphviz(tree, out_file='tree.dot', feature_names=feature_list, rounded=True, precision=1)
-#     # Use dot file to create a graph
-#     (graph,) = pydot.graph_from_dot_file('tree.dot')
-#     # Write graph to a png file
-#     graph.write_png('tree.png')
 
 def feature_importance(forest, features):
     importances = forest.feature_importances_
