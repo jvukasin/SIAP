@@ -2,6 +2,7 @@ from sklearn import preprocessing
 import numpy as np
 import random_forest_alg as rf
 import xgboost_alg as xgb
+import svr_alg as svr
 
 
 def try_all_algs_with_le(df):
@@ -18,9 +19,9 @@ def try_all_algs_with_le(df):
     master_test = master_test[master_test['year'] <= 2016]
 
     # Izbacivanje zemalja koje postoje u jednom skupu a u drugom ne
-    master_train = master_train[master_train['country'] != 'Azerbaijan']
-    master_test = master_test[master_test['country'] != 'Bosnia and Herzegovina']
-    master_test = master_test[master_test['country'] != 'Turkey']
+    # master_train = master_train[master_train['country'] != 'Azerbaijan']
+    # master_test = master_test[master_test['country'] != 'Bosnia and Herzegovina']
+    # master_test = master_test[master_test['country'] != 'Turkey']
 
     master_train_x = master_train[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year',
                          'salaries']]
