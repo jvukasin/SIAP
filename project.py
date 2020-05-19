@@ -16,15 +16,6 @@ import structure_colum_string_values
 import normalization
 
 
-# datasets.init()
-# datasets.combine_datasets()
-
-# def reshape_data(input_data):
-#     nsamples, nx, ny = input_data.shape
-#     return input_data.reshape((nsamples, nx*ny))
-#
-# # print(data_master['gdp_for_year ($)'])
-
 data_combined = pd.read_csv('combined_datasets_w_sunshine.csv')
 master_train = pd.read_csv('master_train.csv')
 master_test = pd.read_csv('master_test.csv')
@@ -35,11 +26,8 @@ df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
 
 whole_dataset = df
 
-structure_colum_string_values.string_to_int_columns(df)
-df = normalization.normalize(df)
-
 """Label encoder"""
-# lt.try_all_algs_with_le(whole_dataset)
+lt.try_all_algs_with_le(whole_dataset)
 
 """# PRAVLJENJE TRAIN I TEST SKUPA NA OSNOVU GODINA"""
 master_train = df[df['year'] >= 1990]
@@ -73,8 +61,8 @@ master_test_x = df_test[['country', 'year', 'sex', 'age', 'population', 'gdp_for
 master_test_y = df_test['suicides_no']
 
 
-# master_train_x = pd.get_dummies(master_train_x)
-# master_test_x = pd.get_dummies(master_test_x)
+master_train_x = pd.get_dummies(master_train_x)
+master_test_x = pd.get_dummies(master_test_x)
 
 X = np.array(master_train_x)
 y = np.array(master_train_y)
@@ -116,7 +104,7 @@ print('====================GBT===================')
 
 """# Support Vector Regression (SVR)"""
 print('====================SVR===================')
-svr.svr_algorithm(X, y, X_test, y_test)
+# svr.svr_algorithm(X, y, X_test, y_test)
 
 
 print('*****************CLASSIFICATION*****************')
