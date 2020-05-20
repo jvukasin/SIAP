@@ -5,7 +5,7 @@ from sklearn.metrics import r2_score, mean_squared_error, explained_variance_sco
 
 def svr_algorithm(X_train, y_train, X_test, y_test):
 
-    model = SVR(kernel='rbf')
+    model = SVR(kernel='rbf', gamma='scale', C=1000) # epslion = 0.1 ne menja nista
 
     model.fit(X_train, y_train)
 

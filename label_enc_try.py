@@ -50,7 +50,7 @@ def try_all_algs_with_le(df):
     features = master_train_x.columns
 
     print('====================RF====================')
-    # rf.rf_algoritam(X, y, X_test, y_test, features)
+    rf.rf_algoritam(X, y, X_test, y_test, features)
 
     """# XGBoost algoritam"""
     print('==================XGBoost=================')
@@ -62,7 +62,7 @@ def try_all_algs_with_le(df):
 
     """# Gradient Boosted Tree"""
     print('====================GBT===================')
-    gbt.gbt_algorythm(X, y, X_test, y_test)
+    # gbt.gbt_algorythm(X, y, X_test, y_test)
 
     """# Support Vector Regression (SVR)"""
     print('====================SVR===================')
