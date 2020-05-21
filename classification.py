@@ -12,7 +12,7 @@ def classification_dataset():
     combined_datasets_classification = pd.DataFrame()
 
     for index, row in df.iterrows():
-        row['suicides/100k pop'] = math.ceil(row['suicides/100k pop'] / 5)
+        row['suicides/100k pop'] = math.ceil(row['suicides/100k pop'] / 10)
         combined_datasets_classification = combined_datasets_classification.append(row)
 
     combined_datasets_classification.to_csv('combined_datasets_classification.csv')
@@ -39,4 +39,8 @@ def split_classification():
 
     master_train.to_csv('master_train_classification.csv')
     master_test.to_csv('master_test_classification.csv')
+
+
+classification_dataset()
+split_classification()
 
