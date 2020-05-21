@@ -10,4 +10,7 @@ def normalize(df):
     # print(result_array)
     # print(result_array[1500])
     df['country'] = result_array
+    s = df['age']
+    temp = (s - np.min(s)) / (np.max(s) - np.min(s))
+    df['age'] = temp
     return df

@@ -5,7 +5,8 @@ import numpy as np
 
 
 def gbt_algorythm(X_train, y_train, X_test, y_test):
-    model = GradientBoostingClassifier(n_estimators=20, random_state=42, learning_rate=0.1, max_depth=2)
+
+    model = GradientBoostingClassifier(n_estimators=20, random_state=42, learning_rate=0.1, max_depth=4)
     model.fit(X_train, y_train)
 
     y_pred = model.predict(X_test)
