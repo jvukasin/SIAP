@@ -16,9 +16,12 @@ def try_all_algs_with_le(df):
     df['sex'] = le.fit_transform(df['sex'])
     df['age'] = le.fit_transform(df['age'])
 
-    df = df[df['country'] != 'Azerbaijan']
-    df = df[df['country'] != 'Bosnia and Herzegovina']
-    df = df[df['country'] != 'Turkey']
+    # df = df[df['country'] != 'Azerbaijan']
+    # df = df[df['country'] != 'Bosnia and Herzegovina']
+    # df = df[df['country'] != 'Turkey']
+    df = df[df['country'] != 4]
+    df = df[df['country'] != 7]
+    df = df[df['country'] != 40]
 
     # df = normalization.normalize(df)
 
@@ -32,6 +35,10 @@ def try_all_algs_with_le(df):
     # master_train = master_train[master_train['country'] != 'Azerbaijan']
     # master_test = master_test[master_test['country'] != 'Bosnia and Herzegovina']
     # master_test = master_test[master_test['country'] != 'Turkey']
+
+    master_train = master_train[master_train['country'] != 3]
+    master_test = master_test[master_test['country'] != 6]
+    master_test = master_test[master_test['country'] != 39]
 
     master_train_x = master_train[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year',
                                    'salaries']]
@@ -49,23 +56,23 @@ def try_all_algs_with_le(df):
 
     features = master_train_x.columns
 
-    print('====================RF====================')
+    print('====================RF - LAB ENC====================')
     rf.rf_algoritam(X, y, X_test, y_test, features)
 
     """# XGBoost algoritam"""
-    print('==================XGBoost=================')
+    print('==================XGBoost - LAB ENC=================')
     # xgb.xbg_algoritam(X, y, X_test, y_test)
 
     """# PCA algoritam"""
-    print('====================PCA===================')
-    # pca.pca_algoritam(X, y, X_test, y_test)
+    print('====================PCA - LAB ENC===================')
+    # pca.pca_algoritam(X, y, X_test, y_test, features)
 
     """# Gradient Boosted Tree"""
-    print('====================GBT===================')
+    print('====================GBT - LAB ENC===================')
     # gbt.gbt_algorythm(X, y, X_test, y_test)
 
     """# Support Vector Regression (SVR)"""
-    print('====================SVR===================')
+    print('====================SVR - LAB ENC===================')
     # svr.svr_algorithm(X, y, X_test, y_test)
 
 

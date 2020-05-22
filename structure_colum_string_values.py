@@ -7,6 +7,14 @@ def string_to_int_columns(df):
     for i in countries:
         if i not in finalC:
             finalC.append(i)
+        # if i == 'Azerbaijan':
+        #     print("Azerbaijan: ", finalC.index(i) + 1)
+        # if i == 'Bosnia and Herzegovina':
+        #     print("Bosnia and Herzegovina: ", finalC.index(i) + 1)
+        # if i == 'Turkey':
+        #     print("Turkey: ", finalC.index(i) + 1)
+
+
 
     for index1, row1 in df.iterrows():
         for contr in finalC:

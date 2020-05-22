@@ -4,7 +4,7 @@ import random_forest_alg as rf
 import xgboost_alg as xgb
 
 
-def pca_algoritam(x_train, y_train, x_test, y_test):
+def pca_algoritam(x_train, y_train, x_test, y_test, features):
 
     scaler = StandardScaler()
     # Fit on training set only.
@@ -24,7 +24,7 @@ def pca_algoritam(x_train, y_train, x_test, y_test):
 
     """# RandomForest algoritam"""
     print('===============rf - pca===============')
-    rf.rf_algoritam(x_train, y_train, x_test, y_test)
+    rf.rf_algoritam(x_train, y_train, x_test, y_test, features)
 
     """# XGBoost algoritam"""
     # xgb.xbg_algoritam(x_train, y_train, x_test, y_test)
