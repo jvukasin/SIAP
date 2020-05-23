@@ -88,7 +88,7 @@ print('====================RF====================')
 
 """# XGBoost algoritam"""
 print('==================XGBoost=================')
-# xgb.xbg_algoritam(X, y, X_test, y_test)
+# xgb.xbg_algoritam(X, y, X_test, y_test, features)
 
 """# PCA algoritam"""
 print('====================PCA===================')

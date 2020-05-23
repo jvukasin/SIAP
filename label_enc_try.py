@@ -50,11 +50,11 @@ def try_all_algs_with_le(df):
     features = master_train_x.columns
 
     print('====================RF====================')
-    rf.rf_algoritam(X, y, X_test, y_test, features)
+    # rf.rf_algoritam(X, y, X_test, y_test, features)
 
     """# XGBoost algoritam"""
     print('==================XGBoost=================')
-    # xgb.xbg_algoritam(X, y, X_test, y_test)
+    xgb.xbg_algoritam(X, y, X_test, y_test, features)
 
     """# PCA algoritam"""
     print('====================PCA===================')
