@@ -1,5 +1,6 @@
 import pandas as pd
 import math
+from sklearn import preprocessing
 
 
 def classification_dataset():
@@ -12,7 +13,7 @@ def classification_dataset():
     combined_datasets_classification = pd.DataFrame()
 
     for index, row in df.iterrows():
-        row['suicides/100k pop'] = math.ceil(row['suicides/100k pop'] / 5)
+        row['suicides/100k pop'] = math.ceil(row['suicides/100k pop'] / 10)
         combined_datasets_classification = combined_datasets_classification.append(row)
 
     combined_datasets_classification.to_csv('combined_datasets_classification.csv')
@@ -25,6 +26,11 @@ def split_classification():
                                               'population', 'salaries', 'sex', 'suicides/100k pop', 'suicides_no',
                                               'sunshine_hours_per_year', 'year'])
 
+    le = preprocessing.LabelEncoder()
+    df['country'] = le.fit_transform(df['country'])
+    df['sex'] = le.fit_transform(df['sex'])
+    df['age'] = le.fit_transform(df['age'])
+
     master_train = df[df['year'] >= 1990]
     master_train = master_train[master_train['year'] <= 2008]
     # #
@@ -32,11 +38,19 @@ def split_classification():
     master_test = master_test[master_test['year'] <= 2016]
 
     # Izbacivanje zemalja koje postoje u jednom skupu a u drugom ne
-    master_train = master_train[master_train['country'] != 'Azerbaijan']
-    master_test = master_test[master_test['country'] != 'Bosnia and Herzegovina']
-    master_test = master_test[master_test['country'] != 'Turkey']
+    # master_train = master_train[master_train['country'] != 'Azerbaijan']
+    # master_test = master_test[master_test['country'] != 'Bosnia and Herzegovina']
+    # master_test = master_test[master_test['country'] != 'Turkey']
+
+    master_train = master_train[master_train['country'] != 3]
+    master_test = master_test[master_test['country'] != 6]
+    master_test = master_test[master_test['country'] != 39]
     # Export podataka
 
     master_train.to_csv('master_train_classification.csv')
     master_test.to_csv('master_test_classification.csv')
+
+
+# classification_dataset()
+# split_classification()
 
