@@ -61,7 +61,7 @@ def try_all_algs_with_le(df):
 
     """# XGBoost algoritam"""
     print('==================XGBoost - LAB ENC=================')
-    # xgb.xbg_algoritam(X, y, X_test, y_test)
+    # xgb.xbg_algoritam(X, y, X_test, y_test, features)
 
     """# PCA algoritam"""
     print('====================PCA - LAB ENC===================')
