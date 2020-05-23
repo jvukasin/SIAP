@@ -14,7 +14,7 @@ def pca_algoritam(x_train, y_train, x_test, y_test, features):
     x_test = scaler.transform(x_test)
 
     # Make an instance of the Model
-    pca = PCA(.95)
+    pca = PCA(n_components=0.95, svd_solver='auto')
     pca.fit(x_train)
 
     print('components: ', pca.n_components_)

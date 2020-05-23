@@ -114,37 +114,37 @@ print('====================SVR===================')
 # svr.svr_algorithm(X, y, X_test, y_test)
 
 
-print('*****************CLASSIFICATION*****************')
-
-df_train_classification = pd.DataFrame(master_train_classification, columns=['country', 'year', 'sex', 'age',
-                                                                             'population', 'suicides/100k pop',
-                                                                             'gdp_for_year ($)',
-                                                                             'sunshine_hours_per_year', 'salaries'])
-
-df_test_classification = pd.DataFrame(master_test_classification, columns=['country', 'year', 'sex', 'age', 'population',
-                                                                           'suicides/100k pop', 'gdp_for_year ($)',
-                                                                           'sunshine_hours_per_year', 'salaries'])
-
-
-master_train_x = df_train_classification[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)',
-                                          'sunshine_hours_per_year', 'salaries']]
-master_train_y = df_train_classification['suicides/100k pop']
-
-master_test_x = df_test_classification[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)',
-                                        'sunshine_hours_per_year', 'salaries']]
-master_test_y = df_test_classification['suicides/100k pop']
-
-
-# master_train_x = pd.get_dummies(master_train_x)
-# master_test_x = pd.get_dummies(master_test_x)
-
-X = np.array(master_train_x)
-y = np.array(master_train_y)
-
-X_test = np.array(master_test_x)
-y_test = np.array(master_test_y)
-
-features = master_train_x.columns
-
-print('====================RF====================')
-rf.rf_algoritam(X, y, X_test, y_test, features)
+# print('*****************CLASSIFICATION*****************')
+#
+# df_train_classification = pd.DataFrame(master_train_classification, columns=['country', 'year', 'sex', 'age',
+#                                                                              'population', 'suicides/100k pop',
+#                                                                              'gdp_for_year ($)',
+#                                                                              'sunshine_hours_per_year', 'salaries'])
+#
+# df_test_classification = pd.DataFrame(master_test_classification, columns=['country', 'year', 'sex', 'age', 'population',
+#                                                                            'suicides/100k pop', 'gdp_for_year ($)',
+#                                                                            'sunshine_hours_per_year', 'salaries'])
+#
+#
+# master_train_x = df_train_classification[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)',
+#                                           'sunshine_hours_per_year', 'salaries']]
+# master_train_y = df_train_classification['suicides/100k pop']
+#
+# master_test_x = df_test_classification[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)',
+#                                         'sunshine_hours_per_year', 'salaries']]
+# master_test_y = df_test_classification['suicides/100k pop']
+#
+#
+# # master_train_x = pd.get_dummies(master_train_x)
+# # master_test_x = pd.get_dummies(master_test_x)
+#
+# X = np.array(master_train_x)
+# y = np.array(master_train_y)
+#
+# X_test = np.array(master_test_x)
+# y_test = np.array(master_test_y)
+#
+# features = master_train_x.columns
+#
+# print('====================RF====================')
+# rf.rf_algoritam(X, y, X_test, y_test, features)
