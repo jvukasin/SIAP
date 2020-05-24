@@ -30,7 +30,7 @@ structure_colum_string_values.string_to_int_columns(df)
 # df = normalization.normalize(df)
 
 """Label encoder"""
-lt.try_all_algs_with_le(whole_dataset)
+# lt.try_all_algs_with_le(whole_dataset)
 
 """# PRAVLJENJE TRAIN I TEST SKUPA NA OSNOVU GODINA"""
 master_train = df[df['year'] >= 1990]
@@ -91,7 +91,7 @@ features = master_train_x.columns
 print('*****************REGRESSION*****************')
 
 print('====================RF====================')
-# rf.rf_algoritam(X, y, X_test, y_test, features)
+rf.rf_algoritam(X, y, X_test, y_test, features)
 
 """# XGBoost algoritam"""
 print('==================XGBoost=================')
@@ -99,7 +99,7 @@ print('==================XGBoost=================')
 
 """# PCA algoritam"""
 print('====================PCA===================')
-pca.pca_algoritam(X, y, X_test, y_test, features)
+# pca.pca_algoritam(X, y, X_test, y_test, features)
 
 """# Linear regression algoritam"""
 print('=================Linear Reg===============')
