@@ -9,6 +9,7 @@ import pca_alg as pca
 import linear_regression_alg as lr
 import gradient_boosted_tree_alg as gbt
 import svr_alg as svr
+import plots as pl
 from sklearn import preprocessing
 import pandas as pd
 import label_enc_try as lt
@@ -17,6 +18,12 @@ import normalization
 
 
 data_combined = pd.read_csv('combined_datasets_w_sunshine.csv')
+
+
+"""# Plots"""
+print('==================Plots=================')
+pl.plots(data_combined)
+
 master_train = pd.read_csv('master_train.csv')
 master_test = pd.read_csv('master_test.csv')
 master_train_classification = pd.read_csv('master_train_classification.csv')
@@ -76,6 +83,9 @@ y = np.array(master_train_y)
 
 X_test = np.array(master_test_x)
 y_test = np.array(master_test_y)
+
+print(X)
+print(y)
 
 features = master_train_x.columns
 
