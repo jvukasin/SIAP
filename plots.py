@@ -34,6 +34,9 @@ def plots(dataset: pd.DataFrame):
     # By no of suicide by country
     plot_suicides_total_per100k(dataset)
 
+    # By suicide per 100k by year
+    plot_year_per100k(dataset)
+
 
 def aggregate_data_by_age(dataset):
     g_5_14 = AgeGroup("5-14", 0, 0)
@@ -212,4 +215,28 @@ def plot_suicides_total_per100k(dataset):
     plt.yticks(y_pos, coun)
     plt.xlabel("Number of suicides per 100.000 people")
     plt.ylabel("Country")
+    plt.show()
+
+
+def plot_year_per100k(dataset):
+    new_dataset = dataset[dataset['year'] >= 1990]
+
+    arr_year = [1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+                2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016]
+    arr_sum = []
+
+    for year in arr_year:
+        dataset_byYear = new_dataset[new_dataset['year'] == year]
+        total_suic = dataset_byYear['suicides/100k pop'].sum()
+        arr_sum.append(total_suic)
+        if year == 2016:
+            print(dataset_byYear)
+            print(total_suic)
+
+    plt.plot(arr_year, arr_sum)
+    plt.scatter(arr_year, arr_sum)
+    plt.title("Global suicide trend (per 100k) from 1990 to 2016")
+    plt.xticks(arr_year, arr_year)
+    plt.xlabel("Year")
+    plt.ylabel("Suicides per 100k")
     plt.show()
