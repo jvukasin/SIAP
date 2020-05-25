@@ -1,14 +1,17 @@
-from sklearn.ensemble import RandomForestClassifier #RF klasifikator
+from sklearn.ensemble import RandomForestClassifier  # RF klasifikator
 from sklearn.metrics import accuracy_score
-from sklearn.metrics import explained_variance_score, r2_score, mean_squared_error, f1_score, precision_score, recall_score
+from sklearn.metrics import explained_variance_score, r2_score, mean_squared_error, f1_score, precision_score, \
+    recall_score
 from sklearn.tree import export_graphviz
 import pydot
 from sklearn.model_selection import cross_val_score
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.model_selection import GridSearchCV
 
 
 def rf_algoritam(X_train, y_train, X_test, y_test, features):
+    # use_gridSearch(X_train, y_train)
 
     data_master_RF = RandomForestClassifier(n_estimators=50, random_state=42, max_depth=100, min_samples_split=4)
     data_master_RF = data_master_RF.fit(X_train, y_train)
@@ -66,3 +69,13 @@ def feature_importance(forest, features):
     plt.xlabel('Relative Importance')
     plt.show()
 
+def use_gridSearch(X_train, y_train):
+    n_estimators = [20, 50, 100, 200]
+    min_samples_split = [2, 3, 4, 5, 6]
+    max_depth = [2, 5, 10, 20, 50, 100, 200]
+    param_grid = {'n_estimators': n_estimators,
+                  'max_depth': max_depth,
+                  'min_samples_split': min_samples_split}
+    grid_search = GridSearchCV(RandomForestClassifier(), param_grid, cv=5, return_train_score='true', verbose=2)
+    grid_search.fit(X_train, y_train)
+    print(grid_search.best_params_)

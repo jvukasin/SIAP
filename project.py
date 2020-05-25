@@ -9,6 +9,7 @@ import pca_alg as pca
 import linear_regression_alg as lr
 import gradient_boosted_tree_alg as gbt
 import svr_alg as svr
+import plots as pl
 from sklearn import preprocessing
 import pandas as pd
 import label_enc_try as lt
@@ -17,6 +18,12 @@ import normalization
 
 
 data_combined = pd.read_csv('combined_datasets_w_sunshine.csv')
+
+
+"""# Plots"""
+print('==================Plots=================')
+pl.plots(data_combined)
+
 master_train = pd.read_csv('master_train.csv')
 master_test = pd.read_csv('master_test.csv')
 master_train_classification = pd.read_csv('master_train_classification.csv')
@@ -30,7 +37,7 @@ structure_colum_string_values.string_to_int_columns(df)
 # df = normalization.normalize(df)
 
 """Label encoder"""
-lt.try_all_algs_with_le(whole_dataset)
+# lt.try_all_algs_with_le(whole_dataset)
 
 """# PRAVLJENJE TRAIN I TEST SKUPA NA OSNOVU GODINA"""
 master_train = df[df['year'] >= 1990]
@@ -77,6 +84,9 @@ y = np.array(master_train_y)
 X_test = np.array(master_test_x)
 y_test = np.array(master_test_y)
 
+print(X)
+print(y)
+
 features = master_train_x.columns
 
 """# RandomForest algoritam"""
@@ -114,7 +124,7 @@ print('====================SVR===================')
 # svr.svr_algorithm(X, y, X_test, y_test)
 
 
-print('*****************CLASSIFICATION*****************')
+# print('*****************CLASSIFICATION*****************')
 
 # df_train_classification = pd.DataFrame(master_train_classification, columns=['country', 'year', 'sex', 'age',
 #                                                                              'population', 'suicides/100k pop',
