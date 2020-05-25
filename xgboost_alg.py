@@ -32,12 +32,6 @@ def xbg_algoritam(X_train, y_train, X_test, y_test, features):
     rmean = np.sqrt(mean)
     print("Root mean squared error XGBoost: %.2f" % rmean)
 
-    print("Confusion Matrix:")
-    print(confusion_matrix(y_test, y_pred))
-
-    print("Classification Report")
-    print(classification_report(y_test, y_pred))
-
     # plot feature importance from dataset
     feature_importance(model, features)
 

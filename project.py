@@ -32,28 +32,28 @@ df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
                                         'population', 'salaries', 'sex', 'suicides/100k pop', 'suicides_no', 'sunshine_hours_per_year', 'year'])
 
 whole_dataset = df
-
-structure_colum_string_values.string_to_int_columns(df)
+#
+# structure_colum_string_values.string_to_int_columns(df)
 # df = normalization.normalize(df)
 
 """Label encoder"""
 # lt.try_all_algs_with_le(whole_dataset)
 
 """# PRAVLJENJE TRAIN I TEST SKUPA NA OSNOVU GODINA"""
-master_train = df[df['year'] >= 1990]
-master_train = master_train[master_train['year'] <= 2008]
-# #
-master_test = df[df['year'] >= 2009]
-master_test = master_test[master_test['year'] <= 2016]
+# master_train = df[df['year'] >= 1990]
+# master_train = master_train[master_train['year'] <= 2008]
+#
+# master_test = df[df['year'] >= 2009]
+# master_test = master_test[master_test['year'] <= 2016]
 #
 # # Izbacivanje zemalja koje postoje u jednom skupu a u drugom ne
 # master_train = master_train[master_train['country'] != 'Azerbaijan']
 # master_test = master_test[master_test['country'] != 'Bosnia and Herzegovina']
 # master_test = master_test[master_test['country'] != 'Turkey']
 
-master_train = master_train[master_train['country'] != 3]
-master_test = master_test[master_test['country'] != 6]
-master_test = master_test[master_test['country'] != 39]
+# master_train = master_train[master_train['country'] != 3]
+# master_test = master_test[master_test['country'] != 6]
+# master_test = master_test[master_test['country'] != 39]
 # # Export podataka
 #
 # master_train.to_csv('master_train.csv')
@@ -75,17 +75,14 @@ master_test_x = df_test[['country', 'year', 'sex', 'age', 'population', 'gdp_for
 master_test_y = df_test['suicides_no']
 
 
-# master_train_x = pd.get_dummies(master_train_x)
-# master_test_x = pd.get_dummies(master_test_x)
+master_train_x = pd.get_dummies(master_train_x)
+master_test_x = pd.get_dummies(master_test_x)
 
 X = np.array(master_train_x)
 y = np.array(master_train_y)
 
 X_test = np.array(master_test_x)
 y_test = np.array(master_test_y)
-
-print(X)
-print(y)
 
 features = master_train_x.columns
 

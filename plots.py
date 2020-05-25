@@ -24,12 +24,15 @@ class AgeGroup:
 
 def plots(dataset: pd.DataFrame):
     # Male / female percentage ratio by age group
-    # [g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75] = aggregate_data_by_age(dataset)
-    # plot_by_age_and_sex(g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75)
+    [g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75] = aggregate_data_by_age(dataset)
+    plot_by_age_and_sex(g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75)
 
     # By country's GDP
     [gdp, suicides] = aggregate_data_gdp(dataset)
     plot_by_gdp(gdp, suicides)
+
+    # By no of suicide by country
+    plot_suicides_total_per100k(dataset)
 
 
 def aggregate_data_by_age(dataset):
@@ -172,3 +175,41 @@ def plot_by_gdp(gdp, suicides):
     plt.show()
 
 
+def plot_suicides_total_per100k(dataset):
+    new_dataset = dataset[dataset['year'] >= 1990]
+
+    suicide_no = []
+    countries = []
+    country1 = "Albania"
+    sum = 0
+
+    for index, row in new_dataset.iterrows():
+        if index % 1000 == 0:
+            print("working...")
+
+        if row["suicides/100k pop"] == 0:
+            continue
+        else:
+            country2 = row['country']
+            if country2 == country1:
+                sum = sum + row['suicides/100k pop']
+            else:
+                suicide_no.append(sum)
+                countries.append(country1)
+                country1 = country2
+                sum = 0
+                sum = sum + row['suicides/100k pop']
+
+    df = pd.DataFrame({"country": countries,
+                       "suicide_no": suicide_no})
+    df_sort = df.sort_values('suicide_no')
+    coun = df_sort['country']
+    suic = df_sort['suicide_no']
+
+    y_pos = np.arange(len(coun))
+    plt.barh(y_pos, suic, align='center')
+    plt.title("Number of suicides per 100k population by country from 1990 to 2016")
+    plt.yticks(y_pos, coun)
+    plt.xlabel("Number of suicides per 100.000 people")
+    plt.ylabel("Country")
+    plt.show()
