@@ -22,7 +22,7 @@ data_combined = pd.read_csv('combined_datasets_w_sunshine.csv')
 
 """# Plots"""
 print('==================Plots=================')
-pl.plots(data_combined)
+# pl.plots(data_combined)
 
 master_train = pd.read_csv('master_train.csv')
 master_test = pd.read_csv('master_test.csv')
@@ -41,7 +41,7 @@ whole_dataset = df
 # df = normalization.normalize(df)
 
 """Label encoder"""
-# lt.try_all_algs_with_le(whole_dataset)
+lt.try_all_algs_with_le(whole_dataset)
 
 """# PRAVLJENJE TRAIN I TEST SKUPA NA OSNOVU GODINA"""
 # master_train = df[df['year'] >= 1990]

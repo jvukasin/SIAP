@@ -4,7 +4,7 @@ from sklearn.metrics import explained_variance_score, r2_score, mean_squared_err
     recall_score
 from sklearn.tree import export_graphviz
 import pydot
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import cross_val_score, cross_val_predict
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import GridSearchCV
@@ -14,17 +14,19 @@ def rf_algoritam(X_train, y_train, X_test, y_test, features):
     # use_gridSearch(X_train, y_train)
 
     data_master_RF = RandomForestClassifier(n_estimators=50, random_state=42, max_depth=100, min_samples_split=4)
-    data_master_RF = data_master_RF.fit(X_train, y_train)
-    y_train_pred = data_master_RF.predict(X_train)
-    y_test_pred = data_master_RF.predict(X_test)
+    model = data_master_RF.fit(X_train, y_train)
+    y_test_pred = model.predict(X_test)
 
 
     '''Cross-validation'''
-    cv = cross_val_score(data_master_RF, X_train, y_train, cv=5)
+    cv = cross_val_score(model, X_train, y_train, cv=5)
     print('cross validation')
     print(cv)
     print("Mean of cv: ", cv.mean())
     print("Std of cv: ", cv.std())
+    cv_pred = cross_val_predict(model, X_train, y_train, cv=5)
+    accCV = r2_score(y_train, cv_pred)
+    print("R^2 score CV: %.2f" % accCV)
 
     # print("Train accuracy RF: ", accuracy_score(y_train, y_train_pred))
     accuracy = accuracy_score(y_test, y_test_pred)
@@ -37,8 +39,6 @@ def rf_algoritam(X_train, y_train, X_test, y_test, features):
     print("R^2 score RandomForest: %.2f" % r2)
 
     mean = mean_squared_error(y_test, y_test_pred)
-    print("Mean squared error RandomForest: %.2f" % mean)
-
     rmse = np.sqrt(mean)
     print("Root mean square error RandonForest: %.2f" % rmse)
 
