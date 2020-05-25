@@ -18,13 +18,8 @@ def gbt_algorythm(X_train, y_train, X_test, y_test):
     print("R^2 score Gradient boosted tree: %.2f" % r2)
 
     mean = mean_squared_error(y_test, y_pred)
-    print("Mean squared error Gradient boosted tree: %.2f" % mean)
-
     rmse = np.sqrt(mean)
     print("Root mean square error Gradient boosted tree: %.2f" % rmse)
-
-    print("Confusion Matrix:")
-    print(confusion_matrix(y_test, y_pred))
 
     print("Classification Report")
     print(classification_report(y_test, y_pred))
