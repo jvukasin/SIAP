@@ -25,14 +25,17 @@ class AgeGroup:
 def plots(dataset: pd.DataFrame):
     # Male / female percentage ratio by age group
     [g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75] = aggregate_data_by_age(dataset)
-    plot_by_age_and_sex(g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75)
+    # plot_by_age_and_sex(g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75)
 
     # By country's GDP
     [gdp, suicides] = aggregate_data_gdp(dataset)
-    plot_by_gdp(gdp, suicides)
+    # plot_by_gdp(gdp, suicides)
 
     # By no of suicide by country
-    plot_suicides_total_per100k(dataset)
+    # plot_suicides_total_per100k(dataset)
+
+    # By no of suicide sex over time
+    plot_suicides_by_sex_over_time(dataset)
 
 
 def aggregate_data_by_age(dataset):
@@ -212,4 +215,57 @@ def plot_suicides_total_per100k(dataset):
     plt.yticks(y_pos, coun)
     plt.xlabel("Number of suicides per 100.000 people")
     plt.ylabel("Country")
+    plt.show()
+
+
+def plot_suicides_by_sex_over_time(dataset):
+    new_dataset = dataset[dataset['year'] >= 1990]
+    new_dataset = new_dataset[new_dataset['year'] <= 2016]
+
+    suicide_no_female = []
+    suicide_no_male = []
+    years = []
+    year1 = 1990
+    sum_female = 0
+    sum_male = 0
+
+    for index, row in new_dataset.iterrows():
+        if index % 1000 == 0:
+            print("working...")
+
+        if row["suicides/100k pop"] == 0:
+            continue
+        else:
+            year2 = row['year']
+            if year2 == year1:
+                if row['sex'] == "female":
+                    sum_female = sum_female + row['suicides/100k pop']
+                else:
+                    sum_male = sum_male + row['suicides/100k pop']
+            else:
+                suicide_no_female.append(sum_female)
+                suicide_no_male.append(sum_male)
+                years.append(year1)
+                year1 = year2
+                sum_female = 0
+                sum_male = 0
+                if row['sex'] == "female":
+                    sum_female = sum_female + row['suicides/100k pop']
+                else:
+                    sum_male = sum_male + row['suicides/100k pop']
+
+    df = pd.DataFrame({"year": years,
+                       "suicide_no_female": suicide_no_female,
+                       "suicide_no_male": suicide_no_male})
+    # df_sort = df.sort_values('suicide_no')
+    year = df['year']
+    suicide_no_female = df['suicide_no_female']
+    suicide_no_male = df['suicide_no_male']
+
+    plt.scatter(year, suicide_no_female, c='orange')
+    # plt.scatter(y_pos, suicide_no_male, c='blue')
+    plt.title("Number of suicides per 100k population by sex from 1990 to 2016")
+    # plt.yticks(y_pos, suicide_no_female)
+    plt.ylabel("Number of suicides per 100.000 people")
+    plt.xlabel("Year")
     plt.show()

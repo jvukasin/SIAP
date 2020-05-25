@@ -22,7 +22,7 @@ data_combined = pd.read_csv('combined_datasets_w_sunshine.csv')
 
 """# Plots"""
 print('==================Plots=================')
-# pl.plots(data_combined)
+pl.plots(data_combined)
 
 master_train = pd.read_csv('master_train.csv')
 master_test = pd.read_csv('master_test.csv')
