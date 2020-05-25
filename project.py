@@ -22,7 +22,7 @@ data_combined = pd.read_csv('combined_datasets_w_sunshine.csv')
 
 """# Plots"""
 print('==================Plots=================')
-pl.plots(data_combined)
+# pl.plots(data_combined)
 
 master_train = pd.read_csv('master_train.csv')
 master_test = pd.read_csv('master_test.csv')
@@ -30,6 +30,10 @@ master_train_classification = pd.read_csv('master_train_classification.csv')
 master_test_classification = pd.read_csv('master_test_classification.csv')
 df = pd.DataFrame(data_combined, columns=['age', 'country', 'gdp_for_year ($)',
                                         'population', 'salaries', 'sex', 'suicides/100k pop', 'suicides_no', 'sunshine_hours_per_year', 'year'])
+
+df = df[df['year'] >= 1990]
+df = df[df['year'] <= 2016]
+df.to_csv('final_dataset.csv')
 
 whole_dataset = df
 #
@@ -83,6 +87,9 @@ y = np.array(master_train_y)
 
 X_test = np.array(master_test_x)
 y_test = np.array(master_test_y)
+
+# print(X)
+# print(y)
 
 features = master_train_x.columns
 
