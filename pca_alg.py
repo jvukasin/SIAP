@@ -1,4 +1,4 @@
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, RobustScaler
 from sklearn.decomposition import PCA
 import random_forest_alg as rf
 import xgboost_alg as xgb
@@ -12,6 +12,13 @@ def pca_algoritam(x_train, y_train, x_test, y_test, features):
     # Apply transform to both the training set and the test set.
     x_train = scaler.transform(x_train)
     x_test = scaler.transform(x_test)
+
+    # print('y_test:')
+    # print(y_test)
+    # y = y_test.reshape(-1, 1)
+    # y = RobustScaler(quantile_range=(25, 75)).transform(y)
+    # print('y:')
+    # print(y)
 
     # Make an instance of the Model
     # pca = PCA(.95)
