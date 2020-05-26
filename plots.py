@@ -35,10 +35,13 @@ def plots(dataset: pd.DataFrame):
     # plot_suicides_total_per100k(dataset)
 
     # By no of suicide sex over time
-    plot_suicides_by_sex_over_time(dataset)
+    # plot_suicides_by_sex_over_time(dataset)
 
     # By suicide per 100k by year
     # plot_year_per100k(dataset)
+
+    [g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75] = aggregate_data_by_age(dataset)
+    plot_by_age_group_and_sex(g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75)
 
 
 def aggregate_data_by_age(dataset):
@@ -167,6 +170,24 @@ def plot_by_age_and_sex(g1: AgeGroup, g2: AgeGroup, g3: AgeGroup, g4: AgeGroup, 
 
     plt.ylabel('Percentage [%]')
     plt.title('Male / female suicide number ratio by age group')
+    plt.xticks(ind, ('5-14 y', '15-24 y', '25-34 y', '35-54 y', '55-74 y', '75+ y'))
+    plt.legend((p1[0], p2[0]), ('Men', 'Women'))
+
+    plt.show()
+
+
+def plot_by_age_group_and_sex(g1: AgeGroup, g2: AgeGroup, g3: AgeGroup, g4: AgeGroup, g5: AgeGroup, g6: AgeGroup):
+    menMeans = (g1.maleSum, g2.maleSum, g3.maleSum, g4.maleSum, g5.maleSum, g6.maleSum)
+    womenMeans = (g1.femaleSum, g2.femaleSum, g3.femaleSum, g4.femaleSum, g5.femaleSum, g6.femaleSum)
+
+    width = 0.4
+    ind = np.arange(6)
+    ax = plt.subplot(111)
+    p1 = ax.bar(ind-0.2, menMeans, width, color='blue')
+    p2 = ax.bar(ind+0.2, womenMeans, width, color='orange')
+
+    plt.ylabel('Suicides')
+    plt.title('Male / female global suicide trend by age group')
     plt.xticks(ind, ('5-14 y', '15-24 y', '25-34 y', '35-54 y', '55-74 y', '75+ y'))
     plt.legend((p1[0], p2[0]), ('Men', 'Women'))
 
