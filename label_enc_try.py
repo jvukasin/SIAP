@@ -23,7 +23,10 @@ def try_all_algs_with_le(df):
     df = df[df['country'] != 7]
     df = df[df['country'] != 40]
 
-    # df = normalization.normalize(df)
+    # print(df['gdp_for_year ($)'])
+    df = normalization.normalize(df)
+    # print(df['gdp_for_year ($)'])
+    # print('gdp_for_year ($): ', df['gdp_for_year ($)'][5000])
 
     master_train = df[df['year'] >= 1990]
     master_train = master_train[master_train['year'] <= 2008]

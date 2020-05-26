@@ -125,7 +125,7 @@ print('====================GBT===================')
 
 """# Support Vector Regression (SVR)"""
 print('====================SVR===================')
-svr.svr_algorithm(X, y, X_test, y_test)
+# svr.svr_algorithm(X, y, X_test, y_test)
 
 
 # print('*****************CLASSIFICATION*****************')
