@@ -38,10 +38,11 @@ def plots(dataset: pd.DataFrame):
     # plot_suicides_by_sex_over_time(dataset)
 
     # By suicide per 100k by year
-    # plot_year_per100k(dataset)
+    plot_year_per100k(dataset)
 
-    [g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75] = aggregate_data_by_age(dataset)
-    plot_by_age_group_and_sex(g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75)
+    # Global suicide trend by age group male / female
+    # [g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75] = aggregate_data_by_age(dataset)
+    # plot_by_age_group_and_sex(g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75)
 
 
 def aggregate_data_by_age(dataset):
@@ -278,23 +279,24 @@ def plot_suicides_by_sex_over_time(dataset):
 
 
 def plot_year_per100k(dataset):
-    new_dataset = dataset[dataset['year'] >= 1990]
+    dt = dataset[dataset['year'] >= 1990]
+    new_dataset = dt[dt['year'] < 2016]
 
     arr_year = [1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
-                2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016]
+                2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015]
     arr_sum = []
 
     for year in arr_year:
         dataset_byYear = new_dataset[new_dataset['year'] == year]
         total_suic = dataset_byYear['suicides/100k pop'].sum()
         arr_sum.append(total_suic)
-        if year == 2016:
+        if year == 2015:
             print(dataset_byYear)
             print(total_suic)
 
     plt.plot(arr_year, arr_sum)
     plt.scatter(arr_year, arr_sum)
-    plt.title("Global suicide trend (per 100k) from 1990 to 2016")
+    plt.title("Global suicide trend (per 100k) from 1990 to 2015")
     plt.xticks(arr_year, arr_year)
     plt.xlabel("Year")
     plt.ylabel("Suicides per 100k")
