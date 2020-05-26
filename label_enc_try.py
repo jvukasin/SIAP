@@ -30,6 +30,9 @@ def try_all_algs_with_le(df):
 
     master_test = df[df['year'] >= 2009]
     master_test = master_test[master_test['year'] <= 2016]
+    # master2 = df[df['year'] >= 1990]
+    # master = master2[master2['year'] <= 2016]
+
 
     # Izbacivanje zemalja koje postoje u jednom skupu a u drugom ne
     # master_train = master_train[master_train['country'] != 'Azerbaijan']
@@ -57,7 +60,7 @@ def try_all_algs_with_le(df):
     features = master_train_x.columns
 
     print('====================RF - LAB ENC====================')
-    # rf.rf_algoritam(X, y, X_test, y_test, features)
+    rf.rf_algoritam(X, y, X_test, y_test, features)
 
     """# XGBoost algoritam"""
     print('==================XGBoost - LAB ENC=================')
