@@ -24,7 +24,7 @@ def try_all_algs_with_le(df):
     df = df[df['country'] != 40]
 
     # print(df['gdp_for_year ($)'])
-    df = normalization.normalize(df)
+    # df = normalization.normalize(df)
     # print(df['gdp_for_year ($)'])
     # print('gdp_for_year ($): ', df['gdp_for_year ($)'][5000])
 
@@ -41,10 +41,6 @@ def try_all_algs_with_le(df):
     # master_train = master_train[master_train['country'] != 'Azerbaijan']
     # master_test = master_test[master_test['country'] != 'Bosnia and Herzegovina']
     # master_test = master_test[master_test['country'] != 'Turkey']
-
-    master_train = master_train[master_train['country'] != 3]
-    master_test = master_test[master_test['country'] != 6]
-    master_test = master_test[master_test['country'] != 39]
 
     master_train_x = master_train[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year',
                                    'salaries']]
@@ -63,7 +59,7 @@ def try_all_algs_with_le(df):
     features = master_train_x.columns
 
     print('====================RF - LAB ENC====================')
-    rf.rf_algoritam(X, y, X_test, y_test, features)
+    # rf.rf_algoritam(X, y, X_test, y_test, features)
 
     """# XGBoost algoritam"""
     print('==================XGBoost - LAB ENC=================')
@@ -79,7 +75,7 @@ def try_all_algs_with_le(df):
 
     """# Support Vector Regression (SVR)"""
     print('====================SVR - LAB ENC===================')
-    # svr.svr_algorithm(X, y, X_test, y_test)
+    svr.svr_algorithm(X, y, X_test, y_test)
 
 
 

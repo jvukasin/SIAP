@@ -36,9 +36,6 @@ df = df[df['year'] <= 2016]
 df.to_csv('final_dataset.csv')
 
 whole_dataset = df
-#
-# structure_colum_string_values.string_to_int_columns(df)
-# df = normalization.normalize(df)
 
 """Label encoder"""
 lt.try_all_algs_with_le(whole_dataset)
