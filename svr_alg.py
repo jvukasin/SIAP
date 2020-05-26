@@ -9,7 +9,7 @@ def svr_algorithm(X_train, y_train, X_test, y_test):
 
     # use_gridSearch(X_train, y_train)
 
-    model = SVR(kernel='rbf', gamma='scale', C=1000) # epslion = 0.1 ne menja nista
+    model = SVR(kernel='rbf', C=1000) # epslion = 0.1 ne menja nista
 
     model.fit(X_train, y_train)
 
