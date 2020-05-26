@@ -31,6 +31,10 @@ def split_classification():
     df['sex'] = le.fit_transform(df['sex'])
     df['age'] = le.fit_transform(df['age'])
 
+    df = df[df['country'] != 4]
+    df = df[df['country'] != 7]
+    df = df[df['country'] != 40]
+
     master_train = df[df['year'] >= 1990]
     master_train = master_train[master_train['year'] <= 2008]
     # #
@@ -42,9 +46,9 @@ def split_classification():
     # master_test = master_test[master_test['country'] != 'Bosnia and Herzegovina']
     # master_test = master_test[master_test['country'] != 'Turkey']
 
-    master_train = master_train[master_train['country'] != 3]
-    master_test = master_test[master_test['country'] != 6]
-    master_test = master_test[master_test['country'] != 39]
+    # master_train = master_train[master_train['country'] != 4]
+    # master_test = master_test[master_test['country'] != 7]
+    # master_test = master_test[master_test['country'] != 40]
     # Export podataka
 
     master_train.to_csv('master_train_classification.csv')

@@ -21,15 +21,18 @@ def pca_algoritam(x_train, y_train, x_test, y_test, features):
     # print(y)
 
     # Make an instance of the Model
-    # pca = PCA(.95)
+    pca = PCA(.95)
     # print('shape: ', x_train.shape)
-    pca = PCA(n_components='mle', svd_solver='full')
+    # pca = PCA(n_components='mle', svd_solver='full')
     pca.fit(x_train)
 
     print('components: ', pca.n_components_)
 
     x_train = pca.transform(x_train)
     x_test = pca.transform(x_test)
+    # features = x_train.columns
+    # print('x_test')
+    # print(x_test)
 
     """# RandomForest algoritam"""
     print('===============rf - pca===============')

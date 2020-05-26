@@ -4,6 +4,7 @@ import random_forest_alg as rf
 import xgboost_alg as xgb
 import svr_alg as svr
 import normalization
+import linear_regression_alg as lg
 import pca_alg as pca
 import linear_regression_alg as lr
 import gradient_boosted_tree_alg as gbt
@@ -24,7 +25,7 @@ def try_all_algs_with_le(df):
     df = df[df['country'] != 40]
 
     # print(df['gdp_for_year ($)'])
-    df = normalization.normalize(df)
+    # df = normalization.normalize(df)
     # print(df['gdp_for_year ($)'])
     # print('gdp_for_year ($): ', df['gdp_for_year ($)'][5000])
 
@@ -67,19 +68,23 @@ def try_all_algs_with_le(df):
 
     """# XGBoost algoritam"""
     print('==================XGBoost - LAB ENC=================')
-    # xgb.xbg_algoritam(X, y, X_test, y_test, features)
+    xgb.xbg_algoritam(X, y, X_test, y_test, features)
 
     """# PCA algoritam"""
     print('====================PCA - LAB ENC===================')
-    # pca.pca_algoritam(X, y, X_test, y_test, features)
+    pca.pca_algoritam(X, y, X_test, y_test, features)
+
+    """# Linear regression"""
+    print('====================LG - LAB ENC===================')
+    lr.linear_regression_alg(X, y, X_test, y_test)
 
     """# Gradient Boosted Tree"""
     print('====================GBT - LAB ENC===================')
-    # gbt.gbt_algorythm(X, y, X_test, y_test)
+    gbt.gbt_algorythm(X, y, X_test, y_test)
 
     """# Support Vector Regression (SVR)"""
     print('====================SVR - LAB ENC===================')
-    # svr.svr_algorithm(X, y, X_test, y_test)
+    svr.svr_algorithm(X, y, X_test, y_test)
 
 
 
