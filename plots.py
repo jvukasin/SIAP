@@ -35,10 +35,14 @@ def plots(dataset: pd.DataFrame):
     # plot_suicides_total_per100k(dataset)
 
     # By no of suicide sex over time
-    plot_suicides_by_sex_over_time(dataset)
+    # plot_suicides_by_sex_over_time(dataset)
 
     # By suicide per 100k by year
-    # plot_year_per100k(dataset)
+    plot_year_per100k(dataset)
+
+    # Global suicide trend by age group male / female
+    # [g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75] = aggregate_data_by_age(dataset)
+    # plot_by_age_group_and_sex(g_5_14, g_15_24, g_25_34, g_35_54, g_55_74, g_75)
 
 
 def aggregate_data_by_age(dataset):
@@ -173,6 +177,24 @@ def plot_by_age_and_sex(g1: AgeGroup, g2: AgeGroup, g3: AgeGroup, g4: AgeGroup, 
     plt.show()
 
 
+def plot_by_age_group_and_sex(g1: AgeGroup, g2: AgeGroup, g3: AgeGroup, g4: AgeGroup, g5: AgeGroup, g6: AgeGroup):
+    menMeans = (g1.maleSum, g2.maleSum, g3.maleSum, g4.maleSum, g5.maleSum, g6.maleSum)
+    womenMeans = (g1.femaleSum, g2.femaleSum, g3.femaleSum, g4.femaleSum, g5.femaleSum, g6.femaleSum)
+
+    width = 0.4
+    ind = np.arange(6)
+    ax = plt.subplot(111)
+    p1 = ax.bar(ind-0.2, menMeans, width, color='blue')
+    p2 = ax.bar(ind+0.2, womenMeans, width, color='orange')
+
+    plt.ylabel('Suicides')
+    plt.title('Male / female global suicide trend by age group')
+    plt.xticks(ind, ('5-14 y', '15-24 y', '25-34 y', '35-54 y', '55-74 y', '75+ y'))
+    plt.legend((p1[0], p2[0]), ('Men', 'Women'))
+
+    plt.show()
+
+
 def plot_by_gdp(gdp, suicides):
     plt.scatter(gdp, suicides, alpha=0.9, marker='.', cmap='viridis')
     plt.title("Global relationship between GDP and suicides")
@@ -257,23 +279,24 @@ def plot_suicides_by_sex_over_time(dataset):
 
 
 def plot_year_per100k(dataset):
-    new_dataset = dataset[dataset['year'] >= 1990]
+    dt = dataset[dataset['year'] >= 1990]
+    new_dataset = dt[dt['year'] < 2016]
 
     arr_year = [1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
-                2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016]
+                2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015]
     arr_sum = []
 
     for year in arr_year:
         dataset_byYear = new_dataset[new_dataset['year'] == year]
         total_suic = dataset_byYear['suicides/100k pop'].sum()
         arr_sum.append(total_suic)
-        if year == 2016:
+        if year == 2015:
             print(dataset_byYear)
             print(total_suic)
 
     plt.plot(arr_year, arr_sum)
     plt.scatter(arr_year, arr_sum)
-    plt.title("Global suicide trend (per 100k) from 1990 to 2016")
+    plt.title("Global suicide trend (per 100k) from 1990 to 2015")
     plt.xticks(arr_year, arr_year)
     plt.xlabel("Year")
     plt.ylabel("Suicides per 100k")

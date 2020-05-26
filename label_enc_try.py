@@ -43,10 +43,6 @@ def try_all_algs_with_le(df):
     # master_test = master_test[master_test['country'] != 'Bosnia and Herzegovina']
     # master_test = master_test[master_test['country'] != 'Turkey']
 
-    master_train = master_train[master_train['country'] != 3]
-    master_test = master_test[master_test['country'] != 6]
-    master_test = master_test[master_test['country'] != 39]
-
     master_train_x = master_train[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)', 'sunshine_hours_per_year',
                                    'salaries']]
     master_train_y = master_train['suicides_no']
@@ -64,7 +60,7 @@ def try_all_algs_with_le(df):
     features = master_train_x.columns
 
     print('====================RF - LAB ENC====================')
-    rf.rf_algoritam(X, y, X_test, y_test, features)
+    # rf.rf_algoritam(X, y, X_test, y_test, features)
 
     """# XGBoost algoritam"""
     print('==================XGBoost - LAB ENC=================')
