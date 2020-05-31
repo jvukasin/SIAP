@@ -6,6 +6,11 @@ from sklearn.model_selection import cross_val_score, cross_val_predict
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import GridSearchCV
+from sklearn.tree import export_graphviz
+from subprocess import call
+from IPython.display import Image
+import os
+import pydot
 
 
 def rf_algoritam(X_train, y_train, X_test, y_test, features):
@@ -21,9 +26,9 @@ def rf_algoritam(X_train, y_train, X_test, y_test, features):
     print(cv)
     print("Mean of cv: ", cv.mean())
     print("Std of cv: ", cv.std())
-    cv_pred = cross_val_predict(model, X_train, y_train, cv=5)
-    accCV = r2_score(y_train, cv_pred)
-    print("R^2 score CV: %.2f" % accCV)
+    # cv_pred = cross_val_predict(model, X_train, y_train, cv=5)
+    # accCV = r2_score(y_train, cv_pred)
+    # print("R^2 score CV: %.2f" % accCV)
 
     # print("Train accuracy RF: ", accuracy_score(y_train, y_train_pred))
     accuracy = accuracy_score(y_test, y_test_pred)
@@ -50,7 +55,8 @@ def rf_algoritam(X_train, y_train, X_test, y_test, features):
     print('recall score RandomForest: ', recall)
 
     # plot feature importance from dataset
-    feature_importance(data_master_RF, features)
+    # feature_importance(model, features)
+    tree_visualization(model, features)
 
 
 def feature_importance(forest, features):
@@ -75,4 +81,41 @@ def use_gridSearch(X_train, y_train):
     grid_search = GridSearchCV(RandomForestClassifier(), param_grid, cv=5, return_train_score='true', verbose=2)
     grid_search.fit(X_train, y_train)
     print(grid_search.best_params_)
+
+
+def tree_visualization(model, features):
+    estimator = model.estimators_[0]
+    i_tree = 0
+    # for tree_in_forest in estimator:
+    #     export_graphviz(tree_in_forest, out_file='tree.dot',
+    #                     feature_names=list(features),
+    #                     filled=True,
+    #                     rounded=True)
+    #     (graph,) = pydot.graph_from_dot_file('tree.dot')
+    #     name = 'tree' + str(i_tree)
+    #     graph.write_png(name + '.png')
+    #     os.system('dot -Tpng tree.dot -o tree.png -Gdpi=800')
+    #     i_tree += 1
+
+    # for tree_in_forest in estimator.estimators_:
+    export_graphviz(estimator, out_file='tree.dot',
+                    feature_names=list(features),
+                    filled=True,
+                    rounded=True)
+    (graph,) = pydot.graph_from_dot_file('tree.dot')
+    graph.write_svg('tree.svg')
+    os.system('dot -Tsvg tree.dot -o tree.svg')
+
+    # Export as dot file
+    # export_graphviz(estimator, out_file='tree.dot',
+    #                 feature_names=list(features),
+    #                 # class_names=['suicides_no'],
+    #                 rounded=True, proportion=False,
+    #                 precision=2, filled=True)
+    #
+    # # Convert to png using system command (requires Graphviz)
+    # call(['dot', '-Tpng', 'tree.dot', '-o', 'tree.png', '-Gdpi=600'])
+    #
+    # # Display in jupyter notebook
+    # Image(filename='tree.png')
 

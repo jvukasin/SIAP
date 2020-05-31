@@ -60,27 +60,27 @@ def try_all_algs_with_le(df):
     features = master_train_x.columns
 
     print('====================RF - LAB ENC====================')
-    # rf.rf_algoritam(X, y, X_test, y_test, features)
+    rf.rf_algoritam(X, y, X_test, y_test, features)
 
     """# XGBoost algoritam"""
     print('==================XGBoost - LAB ENC=================')
-    xgb.xbg_algoritam(X, y, X_test, y_test, features)
+    # xgb.xbg_algoritam(X, y, X_test, y_test, features)
 
     """# PCA algoritam"""
     print('====================PCA - LAB ENC===================')
-    pca.pca_algoritam(X, y, X_test, y_test, features)
+    # pca.pca_algoritam(X, y, X_test, y_test, features)
 
     """# Linear regression"""
     print('====================LG - LAB ENC===================')
-    lr.linear_regression_alg(X, y, X_test, y_test)
+    # lr.linear_regression_alg(X, y, X_test, y_test)
 
     """# Gradient Boosted Tree"""
     print('====================GBT - LAB ENC===================')
-    gbt.gbt_algorythm(X, y, X_test, y_test)
+    # gbt.gbt_algorythm(X, y, X_test, y_test)
 
     """# Support Vector Regression (SVR)"""
     print('====================SVR - LAB ENC===================')
-    svr.svr_algorithm(X, y, X_test, y_test)
+    # svr.svr_algorithm(X, y, X_test, y_test)
 
 
 

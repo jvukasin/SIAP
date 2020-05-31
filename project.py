@@ -39,7 +39,7 @@ df.to_csv('final_dataset.csv')
 whole_dataset = df
 
 """Label encoder"""
-# lt.try_all_algs_with_le(whole_dataset)
+lt.try_all_algs_with_le(whole_dataset)
 
 """# PRAVLJENJE TRAIN I TEST SKUPA NA OSNOVU GODINA"""
 # master_train = df[df['year'] >= 1990]
@@ -76,7 +76,6 @@ master_test_x = df_test[['country', 'year', 'sex', 'age', 'population', 'gdp_for
                          'salaries']]
 master_test_y = df_test['suicides_no']
 
-
 # master_train_x = pd.get_dummies(master_train_x)
 # master_test_x = pd.get_dummies(master_test_x)
 
@@ -86,26 +85,8 @@ y = np.array(master_train_y)
 X_test = np.array(master_test_x)
 y_test = np.array(master_test_y)
 
-# print(X)
-# print(y)
-
 features = master_train_x.columns
 
-# plt.hist(x=y, color='#0504aa')
-# plt.grid(axis='y', alpha=0.75)
-# plt.xlabel('Value')
-# plt.ylabel('Frequency')
-# plt.title('My Very Own Histogram')
-# plt.show()
-
-"""# RandomForest algoritam"""
-# lab_enc = preprocessing.LabelEncoder()
-# print('pre')
-# print(y)
-# y = lab_enc.fit_transform(y)
-# print('posle')
-# print(y)
-# y_test = lab_enc.fit_transform(y_test)
 
 print('*****************REGRESSION*****************')
 
@@ -134,37 +115,37 @@ print('====================SVR===================')
 # svr.svr_algorithm(X, y, X_test, y_test)
 
 
-print('*****************CLASSIFICATION*****************')
-
-df_train_classification = pd.DataFrame(master_train_classification, columns=['country', 'year', 'sex', 'age',
-                                                                             'population', 'suicides/100k pop',
-                                                                             'gdp_for_year ($)',
-                                                                             'sunshine_hours_per_year', 'salaries'])
-
-df_test_classification = pd.DataFrame(master_test_classification, columns=['country', 'year', 'sex', 'age', 'population',
-                                                                           'suicides/100k pop', 'gdp_for_year ($)',
-                                                                           'sunshine_hours_per_year', 'salaries'])
-
-
-master_train_x = df_train_classification[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)',
-                                          'sunshine_hours_per_year', 'salaries']]
-master_train_y = df_train_classification['suicides/100k pop']
-
-master_test_x = df_test_classification[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)',
-                                        'sunshine_hours_per_year', 'salaries']]
-master_test_y = df_test_classification['suicides/100k pop']
-
-
-# master_train_x = pd.get_dummies(master_train_x)
-# master_test_x = pd.get_dummies(master_test_x)
-
-X = np.array(master_train_x)
-y = np.array(master_train_y)
-
-X_test = np.array(master_test_x)
-y_test = np.array(master_test_y)
-
-features = master_train_x.columns
-
-print('====================RF====================')
-rf.rf_algoritam(X, y, X_test, y_test, features)
+# print('*****************CLASSIFICATION*****************')
+#
+# df_train_classification = pd.DataFrame(master_train_classification, columns=['country', 'year', 'sex', 'age',
+#                                                                              'population', 'suicides/100k pop',
+#                                                                              'gdp_for_year ($)',
+#                                                                              'sunshine_hours_per_year', 'salaries'])
+#
+# df_test_classification = pd.DataFrame(master_test_classification, columns=['country', 'year', 'sex', 'age', 'population',
+#                                                                            'suicides/100k pop', 'gdp_for_year ($)',
+#                                                                            'sunshine_hours_per_year', 'salaries'])
+#
+#
+# master_train_x = df_train_classification[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)',
+#                                           'sunshine_hours_per_year', 'salaries']]
+# master_train_y = df_train_classification['suicides/100k pop']
+#
+# master_test_x = df_test_classification[['country', 'year', 'sex', 'age', 'population', 'gdp_for_year ($)',
+#                                         'sunshine_hours_per_year', 'salaries']]
+# master_test_y = df_test_classification['suicides/100k pop']
+#
+#
+# # master_train_x = pd.get_dummies(master_train_x)
+# # master_test_x = pd.get_dummies(master_test_x)
+#
+# X = np.array(master_train_x)
+# y = np.array(master_train_y)
+#
+# X_test = np.array(master_test_x)
+# y_test = np.array(master_test_y)
+#
+# features = master_train_x.columns
+#
+# print('====================RF====================')
+# rf.rf_algoritam(X, y, X_test, y_test, features)
